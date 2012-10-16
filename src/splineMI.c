@@ -303,7 +303,7 @@ double productMoment(const double *x, const double *y, int n){
 
 //========================= export R function ===================================
 
-void mi2(const double *x, const double *y, int *n, int *bin, int *so, double *miOut, int *norm, int *negateMI){
+void mi2R(const double *x, const double *y, int *n, int *bin, int *so, double *miOut, int *norm, int *negateMI){
   double *u = (double*) calloc(*bin + *so, sizeof(double));
   double *wx = (double*) calloc(*bin * *n, sizeof(double));
   double *wy = (double*) calloc(*bin * *n, sizeof(double));

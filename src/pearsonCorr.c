@@ -1,12 +1,5 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-#include <R.h>
-#ifndef NaN
-#define NaN -sqrt(-1)
-#endif
 
-double cor(const double* x, const double* y, int* n, double *cOut){
+void corR(const double* x, const double* y, int* n, double *cOut){
 	double xMean = 0, yMean = 0, xSd = 0, ySd = 0, rho = 0;
 	int i;
 	for(i = 0; i < *n; i++){
@@ -23,7 +16,7 @@ double cor(const double* x, const double* y, int* n, double *cOut){
 	rho = (rho - *n * xMean * yMean) / xSd / ySd;
 	*cOut = rho;
 }
-double getAllCorWz(const double *data, const double *vec , int *m, int *n, double *rs){
+void getAllCorWz(const double *data, const double *vec , int *m, int *n, double *rs){
 	double vMean = 0, yMean, vSd = 0, ySd;
 	int i, j;
 	double y;

@@ -31,7 +31,7 @@ getMI = function(x, y, bin=6, so=3, rankBased=FALSE, normalize=TRUE, negateMI = 
       x = rank(x)
       y = rank(y)
     }
-      out = .C("mi2", x = as.double(x), y=as.double(y), n=as.integer(n), bin=as.integer(bin), so = as.integer(so), miOut = 0, norm = as.integer(normalize), negateMI = as.integer(negateMI))
+      out = .C("mi2R", x = as.double(x), y=as.double(y), n=as.integer(n), bin=as.integer(bin), so = as.integer(so), miOut = 0, norm = as.integer(normalize), negateMI = as.integer(negateMI))
 
   }
 
@@ -78,7 +78,7 @@ getCorr = function(x, y, rankBased = FALSE){
 		y = rank(y)
 	}
 
-	out = .C("cor", x=as.double(x), y=as.double(y), n=as.integer(n), cOut=as.double(0))
+	out = .C("corR", x=as.double(x), y=as.double(y), n=as.integer(n), cOut=as.double(0))
 
 	r = out$cOut
 	return(r)
