@@ -1,0 +1,11 @@
+useDynLib(cafr)
+export( getMI,
+	getMI2vs1, 
+	getAllMIWz, 
+	findAttractor, 
+	load.exp, 
+	loadTextMat, 
+	getCorr, 
+	getAllCorWz,
+	findCorrAttractor
+)
