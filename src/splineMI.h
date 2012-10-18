@@ -3,6 +3,7 @@
 #include <time.h>
 #include <math.h>
 #include <string.h>
+#include <R.h>
 
 float log2f(float);
 double log2d(double);
@@ -15,6 +16,7 @@ double stdi(int*,int);
 void knotVector(double*, int, int);
 void findWeights(const double *, const double *, double *, int, int, int, double, double);
 double entropy1(const double*, int, int);
+double mi2(const double*, const double*, int, int, int, int, int);
 
 // export R function
 void mi2R(const double *, const double *, int *, int *, int *, double *, int *, int *);

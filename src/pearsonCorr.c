@@ -1,4 +1,25 @@
+#include "pearsonCorr.h"
 
+
+double cor(const double* x, const double* y, int n){
+	double xMean = 0, yMean = 0, xSd = 0, ySd = 0, rho = 0;
+	int i;
+	for(i = 0; i < n; i++){
+		xMean += x[i];
+		yMean += y[i];
+		xSd += x[i] * x[i];
+		ySd += y[i] * y[i];
+		rho += x[i] * y[i];
+	}
+	xMean /= n;
+	xSd = xSd - n * xMean * xMean;
+	xSd = xSd <= 0? 1 : sqrt(xSd);
+	yMean /= n;
+	ySd = ySd - n * yMean * yMean;
+	ySd = ySd <= 0? 1 : sqrt(ySd);
+	rho = (rho - n * xMean * yMean) / xSd / ySd;
+	return rho;
+}
 void corR(const double* x, const double* y, int* n, double *cOut){
 	double xMean = 0, yMean = 0, xSd = 0, ySd = 0, rho = 0;
 	int i;

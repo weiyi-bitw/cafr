@@ -7,5 +7,6 @@ export( getMI,
 	loadTextMat, 
 	getCorr, 
 	getAllCorWz,
-	findCorrAttractor
+	findCorrAttractor,
+	probeSummarization
 )
