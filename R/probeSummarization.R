@@ -13,7 +13,8 @@ probeSummarization = function(ge, map, method="corr", threshold=0.5, gene.colnam
 			ge = t(apply(ge, 1, function(x){ idx = which(is.na(x)); x[idx] = mean(x, na.rm=T); x}  ))
 			#print(dim(ge))
 		}else{
-			stop("Quit.")
+			cat("Quit.\n");
+			return (NULL)
 		}
 	}
 
