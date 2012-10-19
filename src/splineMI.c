@@ -418,7 +418,7 @@ void mi2vs1(const double *x, const double *y, const double *z, int *n, int *bin,
   free(u);
 }
 
-void getAllMIWz(const double *data, const double* vec, double *mi, int *m, int *n, int *bin, int *so, int *norm, int *negateMI){
+void getAllMIWz_R(const double *data, const double* vec, double *mi, int *m, int *n, int *bin, int *so, int *norm, int *negateMI){
   double *u = (double*) calloc(*bin + *so, sizeof(double));
   double *y = (double*) calloc(*n, sizeof(double));
   double *wx = (double*) calloc(*bin * *n, sizeof(double));
@@ -451,3 +451,39 @@ void getAllMIWz(const double *data, const double* vec, double *mi, int *m, int *
   free(u);
   free(y);
 }
+
+void getAllMIWz(const double *data, const double* vec, double *mi, int m, int n, int bin, int so, int norm, int negateMI){
+  double *u = (double*) calloc(bin + so, sizeof(double));
+  double *y = (double*) calloc(n, sizeof(double));
+  double *wx = (double*) calloc(bin * n, sizeof(double));
+  double *wy = (double*) calloc(bin * n, sizeof(double));
+  int i, j;
+  double e1x, e1y, mix, miy, largerMI;
+
+  knotVector(u, bin, so);
+  findWeights(vec, u, wx, n, so, bin, -1, -1);
+  e1x = entropy1(wx, n, bin);
+  mix = 2*e1x - entropy2(wx, wx, n, bin);
+
+  for(i = 0; i < m; i++){
+    for(j = 0; j < n; j++) y[j] = data[i + j * m];
+    findWeights(y, u, wy, n, so, bin, -1, -1);
+    e1y = entropy1(wy, n, bin);
+    mi[i] = (e1x + e1y - entropy2(wx, wy, n, bin));
+    if(norm == 1){
+      largerMI = mix;
+      miy = 2*e1y - entropy2(wy, wy, n, bin);
+      if(miy > mix) largerMI = miy;
+      if(largerMI == 0) largerMI = 1;
+      mi[i] /= largerMI;
+    }
+    if(negateMI==1 && productMoment(y, vec, n) < 0) mi[i] = -mi[i];
+  }
+
+  free(wx);
+  free(wy);
+  free(u);
+  free(y);
+}
+
+

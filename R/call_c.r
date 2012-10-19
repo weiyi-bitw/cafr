@@ -97,7 +97,7 @@ getAllMIWz = function(x, vec, bin=6, so=3, rankBased=FALSE, normalize = TRUE, so
     vec = rank(vec)
   }
   garbage = rep(-1, m)
-  out = .C("getAllMIWz", data = as.double(x), vec = as.double(vec), mi = as.double(garbage), m = as.integer(m), n = as.integer(n), bin = as.integer(bin),so = as.integer(so), norm=as.integer(normalize), negateMI = as.integer(negateMI))
+  out = .C("getAllMIWz_R", data = as.double(x), vec = as.double(vec), mi = as.double(garbage), m = as.integer(m), n = as.integer(n), bin = as.integer(bin),so = as.integer(so), norm=as.integer(normalize), negateMI = as.integer(negateMI))
 
   mi = out$mi
   names(mi) = rownames(x)

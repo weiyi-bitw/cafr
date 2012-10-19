@@ -8,7 +8,10 @@ export( getMI,
 	getCorr, 
 	getAllCorWz,
 	findCorrAttractor,
+	CAFrun,
+	attractorScanning,
 	attractorScanningGL,
+	summarizeAttractorScanningGL,
 	findCytoband,
 	probeSummarization
 )
