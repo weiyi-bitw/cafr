@@ -45,9 +45,9 @@ attractorScanningGL = function(data, genome, alpha=(2:12)/2, windowSize = 50, ma
 				alist[[i]] = NA
 			}else{
 				aout = sort(mi, decreasing=T)[1:num.output]
-				alist[[i]] = aout
 				score = aout[score.position]
 				if(score >= ascore[i]){
+					alist[[i]] = aout
 					ascore[i] = score
 					aalpha[i] = a
 				}
@@ -79,10 +79,16 @@ attractorScanningGL = function(data, genome, alpha=(2:12)/2, windowSize = 50, ma
 
 	}	
 	cat("Summarizing output...");flush.console()
+	rownames(alist) = NULL
 	out = list(attractome=aglist, score=ascore, bestAlphas = aalpha, scoremat = alist)
 	sumOut = summarizeAttractorScanningGL(out, genes.genome)
+	if(saveAllScore){
+		out$summary=sumOut
+	}else{
+		out = sumOut
+	}
 	cat("done.\n");flush.console()
-	return (sumOut)
+	return (out)
 }
 
 summarizeAttractorScanningGL = function(out, genes.genome, windowSize=50){
@@ -163,6 +169,37 @@ findAttractor = function(data, vec, a=5, maxIter = 100, epsilon=1E-14, bin = 6, 
 	if(c >= maxIter) return (NULL)
 	return (sort(mi, decreasing=T))
 }
+
+findGLAttractor = function(data,seed, genome, alpha=(2:12)/2, windowSize = 50, maxIter = 100, epsilon=1E-14, bin=6, so=3, score.position=5, num.output=10, negateMI=TRUE, verbose=TRUE){
+	if(! seed %in% rownames(genome)) stop("Cannot find seed gene in genome file rownames!")
+	genes.genome = rownames(genome)
+	idx.seed = which(rownames(genome)==seed)
+	data = data[intersect(genes.genome, rownames(data)),] # sort the rownames according to genomic location
+	n = ncol(data)
+	m = nrow(data)
+	mg = length(genes.genome)
+
+	idxrange = max(1, idx.seed-windowSize):min(mg, idx.seed + windowSize) 
+	generange = genes.genome[idxrange]
+	data = data[intersect(generange, rownames(data)),]
+	
+	out = attractorScanningGL(data, genome, alpha, windowSize, maxIter, epsilon, bin, so, score.position, num.output, negateMI, verbose, saveAllScore=TRUE)
+	sumOut = out$summary
+	if(nrow(sumOut) > 1){
+		idxtop = sapply(sumOut[,1], function(g){which(genes.genome==g)})
+		select = which.min(abs(idxtop - idx.seed))
+	}else{
+		select = 1
+	}
+	genes = sumOut[select,1:num.output]
+	mis = out$scoremat[,rownames(sumOut)[select]]
+
+	names(mis) = genes
+
+	return(mis)
+
+}
+
 
 CAFrun = function(data, vec, a=5, maxIter = 100, epsilon=1E-14, bin = 6, so = 3,rankBased = FALSE,  negateMI = TRUE, verbose=TRUE, sorting=TRUE){
 	m = nrow(data)
