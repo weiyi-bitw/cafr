@@ -14,5 +14,7 @@ export( getMI,
 	attractorScanningGL,
 	summarizeAttractorScanningGL,
 	findCytoband,
-	probeSummarization
+	probeSummarization,
+	createMetageneSpace,
+	createGeneSpace
 )
