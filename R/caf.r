@@ -304,7 +304,7 @@ attractorScanning = function(data, a=5, maxIter=100, epsilon=1E-14, bin=6, so=3,
 	return (as)
 }
 
-parAttractorScanning = function(data, start=1, end=nrow(data)  a=5, maxIter=100, epsilon=1E-14, bin=6, so=3, rankBased=FALSE, negateMI=TRUE){
+parAttractorScanning = function(data, start=1, end=nrow(data),  a=5, maxIter=100, epsilon=1E-14, bin=6, so=3, rankBased=FALSE, negateMI=TRUE){
 	m = nrow(data)
 	n = ncol(data)
 	genes = rownames(data)
