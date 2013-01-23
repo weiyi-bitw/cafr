@@ -304,19 +304,20 @@ attractorScanning = function(data, a=5, maxIter=100, epsilon=1E-14, bin=6, so=3,
 	return (as)
 }
 
-parAttractorScanning = function(data, start=1, end=nrow(data),  a=5, maxIter=100, epsilon=1E-14, bin=6, so=3, rankBased=FALSE, negateMI=TRUE){
+parAttractorScanning = function(data, taskList=list(1:nrow(data)), wid=1,  a=5, maxIter=100, epsilon=1E-14, bin=6, so=3, rankBased=FALSE, negateMI=TRUE){
+	cat("Worker", wid, "initialized.\n");flush.console()
 	m = nrow(data)
 	n = ncol(data)
 	genes = rownames(data)
-	task = start:end
+	task = taskList[[wid]]
 	c = 1
 	as = NULL
 	while(length(task) > 0){
 		i = task[1]
-		cat(genes[i], " ( ", c, " / ", length(task), ") ... ", sep="");flush.console()
+		cat("Worker ", wid, " : ", genes[i], " ( ", c, " / ", length(task), ")\n", sep="");flush.console()
 		out = CAFrun(data, data[i,], verbose=FALSE, sorting=FALSE)
 		if(is.null(out)){
-			cat("not converged.\n");flush.console()
+			#if(verbose) {cat("not converged.\n");flush.console()}
 			task = task[-1]
 			next
 		}
@@ -334,21 +335,22 @@ parAttractorScanning = function(data, start=1, end=nrow(data),  a=5, maxIter=100
 					killIdx = which(out >= out[i])
 					task = setdiff(task, killIdx)
 					rownames(as)[which(un==0)] = genes[i]
-					cat("done!\n");flush.console()
+					#if(verbose) {cat("done!\n");flush.console()}
 					next
 				}
 			}
 			as = rbind(as, out)
 			rownames(as)[c] = genes[i]
 			c = c + 1
-			cat("done!\n");flush.console()
+			#if(verbose) {cat("done!\n");flush.console()}
 		}else{
-			cat("dominant.\n");flush.console()
+			#if(verbose) {cat("dominant.\n");flush.console()}
 		}
 	}
 	if(!is.null(as)){
 		colnames(as) = rownames(data)
 	}
+	cat("Worker", wid, "finished.\n");flush.console()
 	return (as)
 }
 
