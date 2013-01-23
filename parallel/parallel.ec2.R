@@ -9,15 +9,13 @@ require(parallel)
 require(caret)
 
 # Install cafr package
-installCAFR = function(){
-	download.file("http://dl.dropbox.com/u/11986954/cafr/cafr_0.22.tar.gz", destfile="./cafr_0.22.tar.gz")
-	install.packages("./cafr_0.22.tar.gz", repos=NULL)
-	library(cafr)
-	unlink("./cafr_0.22.tar.gz")
-}
+download.file("http://dl.dropbox.com/u/11986954/cafr/cafr_0.22.tar.gz", destfile="./cafr_0.22.tar.gz")
+install.packages("./cafr_0.22.tar.gz", repos=NULL)
+library(cafr)
+unlink("./cafr_0.22.tar.gz")
+
 
 args <- commandArgs(TRUE)
-
 #=================================
 # Create socket cluster 
 #
@@ -44,6 +42,7 @@ widList = list()
 for(i in 1:numWorkers){
 	widList = c(widList, i)
 }
+clusterCall(cl, function(){library(cafr)})
 #================================
 # Load data
 #===============================
@@ -52,6 +51,7 @@ ge = load.exp(args[1])
 m = nrow(ge)
 taskList = createFolds(1:m, k=numWorkers)
 
+cat("Finding attractors...\n");flush.console()
 attractorOut = parLapply(cl, widList, 
   function(ge, tl, wid, a=5, maxIter=100, epsilon=1E-14, bin=6, so=3, verbose=FALSE){
 	parAttractorScanning(ge, tl, wid, a, maxIter, epsilon, bin, so)
@@ -60,4 +60,7 @@ attractorOut = parLapply(cl, widList,
   tl=taskList
 )
 
+#save(attractorOut, file="attractorOut.rda")
+
+cat("Summarize result...\n");flush.console()
 
