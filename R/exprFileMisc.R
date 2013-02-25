@@ -1,18 +1,18 @@
 # use built-in R function, slow, use load.exp instead
 load.exp <- function(file, sep='\t'){
-	line = readLines(file)
-	tokens = strsplit(line[1], "\t")[[1]]
-	n = length(tokens)-1
-	m = length(line)-1
-	mset = matrix(NA, m, n)	
-	cname = tokens[2:(n+1)]
-	rname = rep(NA, m)
-	b = txtProgressBar(style=3)
+	line <- readLines(file)
+	tokens <- strsplit(line[1], "\t")[[1]]
+	n <- length(tokens)-1
+	m <- length(line)-1
+	mset <- matrix(NA, m, n)	
+	cname <- tokens[2:(n+1)]
+	rname <- rep(NA, m)
+	b <- txtProgressBar(style=3)
 	for(i in 1:m){
-		tokens = strsplit(line[i+1], "\t")[[1]]
-		tokens[tokens=="NA"] = NA		
-		rname[i] = tokens[1]
-		mset[i,] = as.numeric(tokens[2:(n+1)])
+		tokens <- strsplit(line[i+1], "\t")[[1]]
+		tokens[tokens=="NA"] <- NA
+		rname[i] <- tokens[1]
+		mset[i,] <- as.numeric(tokens[2:(n+1)])
 		if(i %% 100 == 0){
 			setTxtProgressBar(b, i/m)
 		}
@@ -24,19 +24,19 @@ load.exp <- function(file, sep='\t'){
 }
 
 load.clnc <- function(file, sep='\t'){
-	line = readLines(file)
-	tokens = strsplit(line[1], sep)[[1]]
-	n = length(tokens)-1
-	m = length(line)-1
-	mset = matrix(NA, m, n)	
-	cname = tokens[2:(n+1)]
-	rname = rep(NA, m)
-	b = txtProgressBar(style=3)
+	line <- readLines(file)
+	tokens <- strsplit(line[1], sep)[[1]]
+	n <- length(tokens)-1
+	m <- length(line)-1
+	mset <- matrix(NA, m, n)	
+	cname <- tokens[2:(n+1)]
+	rname <- rep(NA, m)
+	b <- txtProgressBar(style=3)
 	for(i in 1:m){
-		tokens = strsplit(line[i+1], sep)[[1]]
-		tokens[tokens=="[Not Available]"] = NA
-		rname[i] = tokens[1]
-		mset[i,] = tokens[2:(n+1)]
+		tokens <- strsplit(line[i+1], sep)[[1]]
+		tokens[tokens=="[Not Available]"] <- NA
+		rname[i] <- tokens[1]
+		mset[i,] <- tokens[2:(n+1)]
 		if(i %% 100 == 0){
 			setTxtProgressBar(b, i/m)
 		}
@@ -93,17 +93,17 @@ cbs <- function(ge, map, sumfun=median, corTh = 0.9){
   mapids <- rownames(map)
   m <- length(genes)
   n <- dim(ge)[2]
-  out = NULL
+  out <- NULL
   cnt <- 0
   glist <- list()
   for(g in genes){
-    cnt = cnt + 1
-    ps = rownames(map)[which(map==g)]
-    nps = length(ps)
+    cnt <- cnt + 1
+    ps <- rownames(map)[which(map==g)]
+    nps <- length(ps)
     if(nps==1){
-      out = rbind(out, ge[ps,])
-      glist[cnt] = g
-      plist[cnt] = ps
+      out <- rbind(out, ge[ps,])
+      glist[cnt] <- g
+      plist[cnt] <- ps
     }else{
       #cc = 
       
