@@ -9,7 +9,6 @@
 #
 
 require(devtools)
-require(parallel)
 require(caret)
 require(RCurl)
 
