@@ -28,7 +28,7 @@ wid = 1
 numWorkers=1
 dirname = "output"
 if(length(args)>1){
-	wid = as.numeric(args[2])+1
+	wid = as.numeric(args[2])
 	numWorkers = as.numeric(args[3])
 }
 if(length(args)>3){
