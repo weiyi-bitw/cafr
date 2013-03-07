@@ -1,20 +1,21 @@
 # R script for Amazon EC2 cluster
+# Wei-Yi Cheng
+# 2013.03.07
 #
 # arguments for script:
 #	args[1] : input gene expression data matrix
 #	args[2] : worker id
 #	args[3] : total workers
 #	args[4] : job codename (optional)
+# For example, to run parFindAttractor on worker 1 in a 10-worker cluster:
+# > Rscript parallel.sge.r data.rda 1 10 JOBID
 #
 #
 
 require(devtools)
 require(caret)
 require(RCurl)
-
-# Install cafr package
-install_github(repo="cafr", username="weiyi-bitw", ref="dev")
-library(cafr)
+require(cafr)
 
 args <- commandArgs(TRUE)
 

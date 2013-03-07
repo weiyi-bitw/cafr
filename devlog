@@ -1,2 +1,4 @@
 2013.01.22
 	Starting parAttractorScanning based on Amazon EC2
+2013.03.06
+	Workable parallel.sge.r and sgeCafr.sh
