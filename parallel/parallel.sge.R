@@ -8,7 +8,7 @@
 #	args[3] : total workers
 #	args[4] : job codename (optional)
 # For example, to run parFindAttractor on worker 1 in a 10-worker cluster:
-# > Rscript parallel.sge.r data.rda 1 10 JOBID
+# > Rscript parallel.sge.R data.rda 1 10 JOBID
 #
 #
 
@@ -29,7 +29,7 @@ wid = 1
 numWorkers=1
 dirname = "output"
 if(length(args)>1){
-	wid = as.numeric(args[2])+1
+	wid = as.numeric(args[2])
 	numWorkers = as.numeric(args[3])
 }
 if(length(args)>3){
