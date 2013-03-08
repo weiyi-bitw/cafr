@@ -12,17 +12,17 @@
 args = commandArgs(TRUE)
 
 filePath = "./"
-if(!is.null(args)){
+if(length(args) > 0){
 	filePath = args[1]
 }
 
-fileNames = list.files(pattern="*.rda", path = filePath)
+fileNames = list.files(pattern="*.attractors.*.rda", path = filePath)
 nf = length(fileNames)
 
 x = NULL
 for(i in 1:nf){
 	cat("Processing", fileNames[i], "...\n");flush.console()
-	load(fileNames[i])
+	load(file.path(filePath,fileNames[i]))
 	if(is.null(as)) next
 	if(is.null(x)){
 		x = as

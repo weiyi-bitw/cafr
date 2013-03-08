@@ -1,2 +1,6 @@
 *.o
 *.so
+src-*
+.Rproj.user
+.Rbuildignore
+*.Rproj
