@@ -6,17 +6,25 @@
 #' @export
 
 
-Attractor <- setRefClass(Class="Attractor",
-			fields=list(genes = "character",
-				mis = "numeric", 
-				src = "character"),
-			methods=list(
-				initialize = function(a, genenames, src, numgenes, qt){
-					o <- order(a, decreasing=TRUE)[1:numgenes]
-					mis <<- a[o]
-					genes <<- genenames[o]
-					src <<- src
-					return (.self)
-				}
-			)
+Attractor <- setRefClass(
+	Class="Attractor",
+	fields=list(genes = "numeric",
+		src = "character"),
+	methods=list(
+		initialize = function(a, genenames, src, numgenes){
+			o <- order(a, decreasing=TRUE)[1:numgenes]
+			genes <<- a[o]
+			names(genes) <<- genenames[o]
+			src <<- src
+			return (.self)
+		},
+		getOverlapNum = function(a){
+			if(class(a) == "Attractor"){
+				t <- table(c(names(.self$genes), names(a$genes)))
+				return (sum(t[t>1]))
+			}else if(class(a) == "AttractorSet"){
+				
+			}
+		}
+	)
 )
