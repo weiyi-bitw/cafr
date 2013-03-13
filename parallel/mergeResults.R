@@ -60,7 +60,7 @@ cat("Generate summarized files...\n");flush.console()
 out1 = NULL
 k = 1
 for(i in 1:m){
-	o = order(x[i,], decreasing=T)
+	o = order(x[i,], decreasing=TRUE)
 	if(rownames(x)[i] %in% colnames(x)[o[1:2]]) next
 	out1 = cbind(out1,colnames(x)[o[1:100]], round(x[i,o[1:100]], 4))
 	aname = paste("Attractor", sprintf("%03d",k), sep="")

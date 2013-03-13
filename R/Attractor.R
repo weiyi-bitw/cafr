@@ -14,7 +14,7 @@ Attractor <- setRefClass(
 		strength = "numeric",
 		src = "character"),
 	methods=list(
-		initialize = function(id, a, genenames, src, numgenes, qt){
+		initialize = function(id, a, genenames, src, numgenes=100, qt=10){
 			.self$id <- id
 			o <- order(a, decreasing=TRUE)[1:numgenes]
 			genes <<- a[o]
@@ -35,7 +35,7 @@ Attractor <- setRefClass(
 								else return (names(aa$genes))
 							}))
 					)
-				t <- table(allgenes)
+				t <- table(allgenes)[names(.self$genes)]
 				return (sum(t[t>1]))
 			}
 		}
