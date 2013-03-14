@@ -1,13 +1,14 @@
 useDynLib(cafr)
-export( getMI,
-	getMI2vs1, 
-	getAllMIWz, 
+export(
 	findAttractor, 
 	findGLAttractor, 
 	loadExpr, 
-	loadClin, 
-	getCorr, 
-	getAllCorWz,
+	loadClin,
+	loadTextMat,
+	getMI,		#
+	getCorr,	#
+	getAllMIWz,	#
+	getAllCorWz,	#
 	findCorrAttractor,
 	CAFrun,
 	attractorScanning,
@@ -17,5 +18,10 @@ export( getMI,
 	findCytoband,
 	probeSummarization,
 	CreateMetageneSpace,
-	CreateGeneSpace
+	CreateGeneSpace,
+	summarizeGenes,
+	varFilter,
+	Attractor,
+	AttractorSet,
+	clusterAttractors
 )
