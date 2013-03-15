@@ -1,4 +1,4 @@
-\name{Corr}
+\name{getCorr}
 \alias{getCorr}
 \alias{getAllCorWz}
 \title{Functions to calculate correlation coefficient}

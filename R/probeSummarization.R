@@ -42,7 +42,7 @@ probeSummarization <- function(ge, map, method="corr", threshold=0.5, gene.colna
   cat("Filtering no-probe genes...\n");flush.console()
   sds <- apply(out, 1, sd)
   killIdx <- which(sds == 0)
-  out <- out[-killIdx,]
+  if(length(killIdx) > 0) out <- out[-killIdx,]
   
   cat("Done.\n")
   return (out)

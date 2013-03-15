@@ -9,7 +9,7 @@ loadClin <- function(file, sep='\t'){
   b <- txtProgressBar(style=3)
   for(i in 1:m){
     tokens <- strsplit(line[i+1], sep)[[1]]
-    tokens[tokens=="[Not Available]"] <- NA
+    tokens[tokens=="[Not Available]" | tokens=="null" | tokens=="NA"] <- NA
     rname[i] <- tokens[1]
     mset[i,] <- tokens[2:(n+1)]
     if(i %% 100 == 0){

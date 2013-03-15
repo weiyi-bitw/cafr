@@ -1,4 +1,4 @@
-CreateMetageneSpace <- function(ge, attractome, map=NULL, chosenProbes = NULL){
+createMetageneSpace <- function(ge, attractome, map=NULL, chosenProbes=NULL, gene.colname="Gene.Symbol"){
   if(is.null(chosenProbes)) {
     if(is.null(map)){
       cat("Warning: map is NULL!\n");flush.console()
@@ -20,7 +20,7 @@ CreateMetageneSpace <- function(ge, attractome, map=NULL, chosenProbes = NULL){
     mappedGenes <- rep(NA, nrow(ge))
     names(mappedGenes) <- rownames(ge)
     idx <- intersect(rownames(ge) , rownames(map))
-    mappedGenes[idx] <- map[idx,1]
+    mappedGenes[idx] <- map[idx,gene.colname]
     for (i in 1:nMeta){
       #cat(i, "\n")
       #flush.console()
@@ -32,7 +32,7 @@ CreateMetageneSpace <- function(ge, attractome, map=NULL, chosenProbes = NULL){
       }
       il <- lapply(genes, function(g){which(mappedGenes == g)})
       ill <- sapply(il, length)
-      goodIdx <- sapply(il, function(i){ if(length(i) == 1) i})
+      goodIdx <- lapply(il, function(i){ if(length(i) == 1) i})
       goodIdx <- goodIdx[sapply(goodIdx, function(x){!is.null(x)})]
       numGood <- sum(ill == 1)
       goodMat <- NULL
@@ -64,8 +64,9 @@ CreateMetageneSpace <- function(ge, attractome, map=NULL, chosenProbes = NULL){
         }) )
         if(length(chosenIdx) == 0) {chosenIdx <- NULL; badMat <- NULL}
       }    
-      pbs[[i]] <- c(goodIdx, chosenIdx)
-      metaSpace[i,] <- (apply(rbind(goodMat, badMat), 2, function(x){mean(x, na.rm=TRUE)}))
+      pbs[[i]] <- sapply(c(goodIdx, chosenIdx), names)
+      if(is.null(goodMat) & is.null(badMat)) metaSpace[i,] <- rep(NA, ncol(metaSpace))
+      else metaSpace[i,] <- (apply(rbind(goodMat, badMat), 2, function(x){mean(x, na.rm=TRUE)}))
       
     }
     names(pbs) <- names(attractome)
@@ -74,8 +75,11 @@ CreateMetageneSpace <- function(ge, attractome, map=NULL, chosenProbes = NULL){
   }else{
     
     metaSpace <- t(sapply(chosenProbes, function(pb){
+    pb <- sapply(pb, function(p){intersect(p, rownames(ge))})
       gmat <- sapply(pb, function(p, ge){
-        if(length(p) > 1){
+        if(length(p) == 0){
+	  rep(NA, ncol(ge))
+	}else if(length(p) > 1){
           apply(ge[p,], 2, mean)
         }else{
           ge[p,]

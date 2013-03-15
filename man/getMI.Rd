@@ -1,4 +1,4 @@
-\name{MI}
+\name{getMI}
 \alias{getMI}
 \alias{getAllMIWz}
 \title{Functions to calculate mutual information}

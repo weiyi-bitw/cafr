@@ -2,9 +2,8 @@ useDynLib(cafr)
 export(
 	findAttractor, 
 	findGLAttractor, 
-	loadExpr, 
-	loadClin,
-	loadTextMat,
+	loadExpr,	#
+	loadClin,	#
 	getMI,		#
 	getCorr,	#
 	getAllMIWz,	#
@@ -16,11 +15,9 @@ export(
 	attractorScanningGL,
 	summarizeAttractorScanningGL,
 	findCytoband,
-	probeSummarization,
-	CreateMetageneSpace,
-	CreateGeneSpace,
-	summarizeGenes,
-	varFilter,
+	probeSummarization,	#
+	createMetageneSpace,	#
+	summarizeGenes,		#
 	Attractor,
 	AttractorSet,
 	clusterAttractors
