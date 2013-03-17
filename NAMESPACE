@@ -1,6 +1,6 @@
 useDynLib(cafr)
 export(
-	findAttractor, 
+	findAttractor,  #
 	findGLAttractor, 
 	loadExpr,	#
 	loadClin,	#
@@ -8,8 +8,8 @@ export(
 	getCorr,	#
 	getAllMIWz,	#
 	getAllCorWz,	#
-	findCorrAttractor,
-	CAFrun,
+	findCorrAttractor,	#
+	CAFrun,			#
 	attractorScanning,
 	parAttractorScanning,
 	attractorScanningGL,
