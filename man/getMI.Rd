@@ -44,7 +44,7 @@ getAllMIWz(data, x, bin=6, so=3, rankBased=FALSE, normalize=TRUE, sorting=FALSE,
 
 \note{ Missing values are not allowed as the input to the function in the current version. }
 \examples{
-# Load the toy dataset from TCGA OV data
+# Load the toy dataset extracted from TCGA OV data
 data(ov)
 #==============
 # First example: find the mutual information between CENPA and MELK

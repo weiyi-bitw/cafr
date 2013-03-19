@@ -1,7 +1,4 @@
-clusterAttractors <- function(filePath = "./", fileNames, datasetTags=NULL){
-  #setwd("/home/weiyi/workspace/data/pancan/")
-  #pancan <- c("BLCA", "HNSC", "LUSC")
-  #, "LUSC", "LUAD", "OV")
+clusterAttractors <- function(filePath = "./", fileNames=list.files(path=filePath, pattern="*.rda"), numGenes=100,  datasetTags=NULL){
   nf <- length(fileNames)
   if(is.null(datasetTags)){
     datasetTags <- paste("Dataset", sprintf("%03d",1:nf))
@@ -28,6 +25,7 @@ clusterAttractors <- function(filePath = "./", fileNames, datasetTags=NULL){
 		aid <- paste(tag, sprintf("%03d", i), sep="")
 		attractorPool[[aid]] <- Attractor$new(
 				id = aid,
+				numgenes = numGenes,
 				a = x[i,],
 				genenames=colnames(x), 
 				src=tag)
@@ -63,9 +61,9 @@ clusterAttractors <- function(filePath = "./", fileNames, datasetTags=NULL){
     if(successMerge){
       attractorPool[[ p[1] ]] <- NULL
       attractorPool[[ p[2] ]] <- NULL
-      killIdx <- sapply(simList, function(x){x[1]}) %in% p[1:2] | sapply(simList, function(x){x[2]}) %in% p[1:2]  
-      simList <- simList[!killIdx]
-      addList <- sapply(attractorPool, function(a){
+      killIdx <- sapply(simList, function(x){x[1]}) %in% p[1:2] | sapply(simList, function(x){x[2]}) %in% p[1:2]
+      if(length(killIdx)>0) simList <- simList[!killIdx]
+      addList <- lapply(attractorPool, function(a){
 			sim <- as$getOverlapNum( a )
 			if(sim < 1) return (NULL)
 			return (c(as$id, a$id,sim))

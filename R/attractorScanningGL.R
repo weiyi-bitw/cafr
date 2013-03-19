@@ -82,6 +82,7 @@ attractorScanningGL <- function(data, genome, alpha=(2:12)/2, windowSize = 50, m
   rownames(alist) <- NULL
   out <- list(attractome=aglist, score=ascore, bestAlphas = aalpha, scoremat = alist)
   sumOut <- summarizeAttractorScanningGL(out, genes.genome)
+  sumOut <- findCytoband(sumOut, genome)
   if(saveAllScore){
     out$summary<-sumOut
   }else{

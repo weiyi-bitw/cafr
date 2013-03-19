@@ -36,7 +36,7 @@ getAllCorWz(data, x, rankBased=FALSE, sorting=FALSE)
 
 \note{ Missing values are not allowed as the input to the function in the current version. }
 \examples{
-# Load the toy dataset from TCGA OV data
+# Load the toy dataset extracted from TCGA OV data
 data(ov)
 #==============
 # First example: find the Pearson correlation coefficients between CENPA and MELK

@@ -59,7 +59,7 @@ CAFrun(data, vec, a=5, maxIter = 100, epsilon=1E-14, bin=6, so=3, rankBased=FALS
  does not have significant advantage than \code{findAttractor} in terms of speed, thus could be obsolete
  in future release.}
 \examples{
-# Load the toy dataset from TCGA OV data
+# Load the toy dataset extracted from TCGA OV data
 data(ov)
 
 # find attractor using CENPA as a seed
