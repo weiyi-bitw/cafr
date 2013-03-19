@@ -37,25 +37,12 @@ loadExpr                Load txt files into matrix or dataframe
 parAttractorScanning    Parallelized attractor scanning function
 probeSummarization      Gene-level expression summarization
 }
-~~ An overview of how to use the package, including the most important ~~
-~~ functions ~~
 }
 \author{
 Cheng, Wei-Yi <wc2302@columbia.edu>
-
-Maintainer: Cheng, Wei-Yi <wc2302@columbia.edu>
-~~ The author and/or maintainer of the package ~~
 }
 \references{
-~~ Literature or other references for background information ~~
+  Wei-Yi Cheng, Tai-Hsien Ou Yang and Dimitris Anastassiou, Biomolecular events in cancer revealed 
+  by attractor metagenes, PLoS Computational Biology, Vol. 9, Issue 2, February 2013. 
 }
-~~ Optionally other standard keywords, one per line, from file KEYWORDS in ~~
-~~ the R documentation directory ~~
 \keyword{ package }
-\seealso{
-~~ Optional links to other man pages, e.g. ~~
-~~ \code{\link[<pkg>:<pkg>-package]{<pkg>}} ~~
-}
-\examples{
-~~ simple examples of the most important functions ~~
-}

@@ -53,6 +53,7 @@ attractorScanningGL(data, genome, alpha=(2:12)/2, windowSize = 50, maxIter = 100
   If \code{saveAllScore} is \code{FALSE}, the function only output the \code{summary} field above in matrix form.
 }
 \examples{
+\dontrun{
 # Load the toy dataset extracted from TCGA OV data
 data(ov)
 
@@ -64,7 +65,7 @@ out <- attractorScanningGL(ov, genome)
 
 # display the summarized output
 print(out)
-
+}
 }
 
 \seealso{

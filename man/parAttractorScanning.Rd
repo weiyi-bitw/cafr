@@ -53,7 +53,7 @@ taskList <- createFolds(1:nrow(ov), k=100)
 as <- parAttractorScanning(ov, taskList=taskList, wid=1)
 
 # display the top 20 genes in first attractor
-sort(as[1,], decreasing=T)[1:20]
+sort(as[1,], decreasing=TRUE)[1:20]
 
 }
 

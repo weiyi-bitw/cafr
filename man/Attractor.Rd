@@ -25,7 +25,7 @@ Wei-Yi Cheng
 }
 
 \seealso{
-\code{\linkS4class{AttractorSet}}, \code{\link{findAttractor}}
+\code{\link{AttractorSet}}, \code{\link{findAttractor}}
 }
 \examples{
 showClass("Attractor")
@@ -56,9 +56,6 @@ colnames(map) <- "Gene.Symbol"
 
 # summarize into gene-level expression after eliminating uncorrelated probes
 brca <- probeSummarization(brca.pbs, map)
-
-# summarize into gene-level expression using median (default)
-brca <- summarizeGenes(brca)
 
 x <- brca["CENPA",]
 a <- findAttractor(brca, x)

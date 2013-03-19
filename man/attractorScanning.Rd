@@ -43,6 +43,7 @@ attractorScanning(data, a=5, maxIter=100, epsilon=1E-14, bin=6, so=3, rankBased=
 
 \note{ Missing values are not allowed as the input to the function in the current version.}
 \examples{
+\dontrun{
 # Load the toy dataset extracted from TCGA OV data
 data(ov)
 
@@ -50,8 +51,8 @@ data(ov)
 as <- attractorScanning(ov)
 
 # display the top 20 genes in first attractor
-sort(as[1,], decreasing=T)[1:20]
-
+sort(as[1,], decreasing=TRUE)[1:20]
+}
 }
 
 \seealso{

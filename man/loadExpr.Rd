@@ -29,6 +29,7 @@
 \examples{
 # This example requires a Synapse account. It shows how to load expression data and 
 # clinical data from Synapse.
+\dontrun{
 require(synapseClient)
 synapseLogin()
 
@@ -41,6 +42,7 @@ ge <- loadExpr(fileName)
 syn <- loadEntity("syn1446151")
 fileName <- file.path(syn$cacheDir, syn$files[[1]])
 clnc <- loadClin(fileName)
+}
 }
 
 \seealso{

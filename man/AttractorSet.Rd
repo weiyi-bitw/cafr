@@ -24,7 +24,7 @@ Wei-Yi Cheng
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\linkS4class{Attractor}}, \code{\link{clusterAttractors}}
+\code{\link{Attractor}}, \code{\link{clusterAttractors}}
 }
 \examples{
 showClass("AttractorSet")

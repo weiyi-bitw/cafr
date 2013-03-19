@@ -4,6 +4,6 @@ Date: 2013-03-18
 Title: Attractor Metagenes Finding Algorithm
 Author: Cheng, Wei-Yi <wc2302@columbia.edu>
 Maintainer: Cheng, Wei-Yi <wc2302@columbia.edu>
-Depends: R (>= 2.13)
+Depends: R (>= 2.13), methods
 Description: Mining gene expression profiles has proven valuable for identifying signatures serving as surrogates of cancer phenotypes. However, the similarities of such signatures across different cancer types have not been strong enough to conclude that they represent a universal biological mechanism shared among multiple cancer types. The Attractor Metagenes Finding Algorithm is a computational method for generating signatures using an iterative process that converges to one of several precise attractors defining signatures representing biomolecular events, such as cell transdifferentiation or the presence of an amplicon.
 License: GPL (>= 2)

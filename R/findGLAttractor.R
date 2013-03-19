@@ -14,7 +14,7 @@ findGLAttractor <- function(data,seed, genome, alpha=(2:12)/2, windowSize = 50, 
   out <- attractorScanningGL(data, genome, alpha, windowSize, maxIter, epsilon, bin, so, score.position, num.output, negateMI, verbose, saveAllScore=TRUE)
   sumOut <- out$summary
   if(nrow(sumOut) > 1){
-    idxtop <- sapply(sumOut[,1], function(g){which(genes.genome==g)})
+    idxtop <- sapply(sumOut[,2], function(g){which(genes.genome==g)})
     select <- which.min(abs(idxtop - idx.seed))
   }else{
     select <- 1

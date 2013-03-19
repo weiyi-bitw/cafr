@@ -60,12 +60,11 @@ colnames(map) <- "Gene.Symbol"
 brca <- probeSummarization(brca.pbs, map)
 
 # summarize into gene-level expression using median (default)
-brca <- summarizeGenes(brca)
+brca <- summarizeGenes(brca.pbs, map)
 }
 
 \seealso{
   \code{\link{findAttractor}},
-  \code{\link{createGeneSpace}},
   \code{\link{createMetageneSpace}}
 }
 

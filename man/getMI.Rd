@@ -17,7 +17,7 @@ getAllMIWz(data, x, bin=6, so=3, rankBased=FALSE, normalize=TRUE, sorting=FALSE,
   \item{so}{Spline order used when estimate mutual information (default=3).}
   \item{rankBased}{When \code{TRUE}, convert the expression values into ranks.}
   \item{normalize}{When \code{TRUE}, normalize the mutual information by dividing the value by 
-    the maximum of the self-mutual information of the two variables \emph{i.e.} \code{max(getMI(x, x), 
+    the maximum of the self-mutual information of the two variables \code{max(getMI(x, x), 
     getMI(y, y))}.}
   \item{sorting}{Whether sort the output vector of MI's.}
   \item{negateMI}{When \code{TRUE}, negate the mutual information if the two vectors have negative 
@@ -27,7 +27,7 @@ getAllMIWz(data, x, bin=6, so=3, rankBased=FALSE, normalize=TRUE, sorting=FALSE,
 \details{
   \code{getMI} 
   evaluate the mutual information between two vectors using B-spline functions. 
-  The function calls a C function implemented by Daub \emph{et al.}. The default setting uses
+  The function calls a C function implemented by Daub. The default setting uses
   six bins and third-order B-splines. \code{getAllMIWz} evaluates the mutual information between 
   every row in \code{data} and the given vector \code{x}. The output vector of mutual information
   will be sorted if \code{sorting} is \code{TRUE}.
@@ -66,8 +66,8 @@ mis <- getAllMIWz(ov, x, sorting=TRUE)
 }
 
 \references{
-  Carsten O Daub, Ralf Steuer, Joachim Selbig and Sebastian Kloska, 
-  Estimating mutual information using B-spline functions – an improved similarity measure for 
+  Carsten O Daub, Ralf Steuer, Joachim Selbig and Sebastian Kloska,
+  Estimating mutual information using B-spline functions - an improved similarity measure for 
   analysing gene expression data. BMC Bioinformatics 2004, 5:118.
 
   Wei-Yi Cheng, Tai-Hsien Ou Yang and Dimitris Anastassiou, Biomolecular events in cancer revealed 

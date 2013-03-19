@@ -1,4 +1,4 @@
-clusterAttractors <- function(filePath = "./", fileNames=list.files(path=filePath, pattern="*.rda"), numGenes=100,  datasetTags=NULL){
+clusterAttractors <- function(filePath="./", fileNames,  numGenes=100,  datasetTags=NULL){
   nf <- length(fileNames)
   if(is.null(datasetTags)){
     datasetTags <- paste("Dataset", sprintf("%03d",1:nf))

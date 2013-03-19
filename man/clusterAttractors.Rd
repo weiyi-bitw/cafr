@@ -5,12 +5,12 @@
 
 
 \usage{
-clusterAttractors(filePath = "./", fileNames=list.files(path=filePath,pattern="*.rda"), numGenes=100 datasetTags=NULL)
+clusterAttractors(filePath="./", fileNames, numGenes=100, datasetTags=NULL)
 }
 
 \arguments{
   \item{filePath}{A path to the directory where the RData files were saved. Default is the working directory.}
-  \item{fileNames}{Names of the RData files to be loaded. Default is all the .rda files in \code{filePath}}
+  \item{fileNames}{Names of the RData files to be loaded.}
   \item{numGenes}{Number of genes load into the Attractor object.}
   \item{datasetTags}{A vector of strings of dataset tags. Used to annotate the Attractor objects.}
 }
@@ -28,6 +28,7 @@ clusterAttractors(filePath = "./", fileNames=list.files(path=filePath,pattern="*
 }
 
 \examples{
+\dontrun{
 # Load the toy dataset extracted from TCGA OV data
 data(ov)
 
@@ -66,11 +67,11 @@ alist[[1]]$getConsensus(sz=10)
 unlink("./as.ov.rda")
 unlink("./as.brca.rda")
 
-
+}
 }
 
 \seealso{
-  \code{\linkS4class{AttractorSet}}, \code{\linkS4class{Attractor}}
+  \code{\link{AttractorSet}}, \code{\link{Attractor}}
 }
 
 \references{
