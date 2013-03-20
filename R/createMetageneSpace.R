@@ -7,6 +7,7 @@ createMetageneSpace <- function(ge, attractome, map=NULL, chosenProbes=NULL, gen
       if(ans == "y" | ans == "Y"){
         map <- cbind(rownames(ge))
         rownames(map) <- rownames(ge)
+	colnames(map) <- gene.colname
         #print(dim(ge))
       }else{
         cat("Quit.\n");
