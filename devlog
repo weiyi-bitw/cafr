@@ -1,0 +1,8 @@
+2013.01.22
+	Starting parAttractorScanning based on Amazon EC2
+2013.03.06
+	Workable parallel.sge.R and sgeCafr.sh (but require AMI with cafr)
+2013.03.07
+	Workable mergeResults.R
+2013.03.18 (Milestone)
+	All functions documented. Pass R CMD check.

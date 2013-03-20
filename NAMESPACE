@@ -1,11 +1,22 @@
 useDynLib(cafr)
-export( getMI,
-	getMI2vs1, 
-	getAllMIWz, 
-	findAttractor, 
-	load.exp, 
-	loadTextMat, 
-	getCorr, 
-	getAllCorWz,
-	findCorrAttractor
+export(
+	findAttractor,  #
+	findGLAttractor,# 
+	loadExpr,	#
+	loadClin,	#
+	getMI,		#
+	getCorr,	#
+	getAllMIWz,	#
+	getAllCorWz,	#
+	findCorrAttractor,	#
+	CAFrun,			#
+	attractorScanning,	#
+	parAttractorScanning,	#
+	attractorScanningGL,	#
+	probeSummarization,	#
+	createMetageneSpace,	#
+	summarizeGenes,		#
+	Attractor,		#
+	AttractorSet,		#
+	clusterAttractors
 )
