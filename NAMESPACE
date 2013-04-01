@@ -9,7 +9,6 @@ export(
 	getAllMIWz,	#
 	getAllCorWz,	#
 	findCorrAttractor,	#
-	CAFrun,			#
 	attractorScanning,	#
 	parAttractorScanning,	#
 	attractorScanningGL,	#

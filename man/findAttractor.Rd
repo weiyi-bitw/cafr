@@ -1,7 +1,6 @@
 \name{findAttractor}
 \alias{findAttractor}
 \alias{findCorrAttractor}
-\alias{CAFrun}
 \title{Finding attractor using the seed gene}
 \description{Find a converged attractor based on the seed gene provided.}
 
@@ -9,7 +8,6 @@
 \usage{
 findAttractor(data, vec, a=5, maxIter=100, epsilon=1E-14, bin=6, so=3, rankBased=FALSE, negateMI = TRUE, verbose=TRUE)
 findCorrAttractor(data, vec, a=10, maxIter=100, epsilon=1E-14, rankBased=FALSE)
-CAFrun(data, vec, a=5, maxIter = 100, epsilon=1E-14, bin=6, so=3, rankBased=FALSE, negateMI=TRUE, verbose=TRUE, sorting=TRUE)
 }
 
 \arguments{
@@ -24,8 +22,6 @@ CAFrun(data, vec, a=5, maxIter = 100, epsilon=1E-14, bin=6, so=3, rankBased=FALS
   \item{negateMI}{When \code{TRUE}, negate the mutual information if the two vectors have negative 
                   momentum.}
   \item{verbose}{When \code{TRUE}, it will show the top 20 genes of the metagene in each iteration.}
-  \item{sorting}{When \code{TRUE}, sort the genes in the attractor according to their MI with the 
-                 metagene.}
 }
 
 \details{
@@ -45,9 +41,6 @@ CAFrun(data, vec, a=5, maxIter = 100, epsilon=1E-14, bin=6, so=3, rankBased=FALS
 
   \code{findCorrAttractor} does the same thing as \code{findAttractor}, but using correlation 
   coefficients instead of MI as association measure.
-
-  \code{CAFrun} is the same as \code{findAttractor}, but uses C for the whole process (
-  \code{findAttractor} only calls C when calculate MI). 
 }
 
 \value{
@@ -55,9 +48,7 @@ CAFrun(data, vec, a=5, maxIter = 100, epsilon=1E-14, bin=6, so=3, rankBased=FALS
   process does not converge within the maximum number of iteration assigned, it will return \code{NULL}.
 }
 
-\note{ Missing values are not allowed as the input to the function in the current version. \code{CAFrun}
- does not have significant advantage than \code{findAttractor} in terms of speed, thus could be obsolete
- in future release.}
+\note{ Missing values are not allowed as the input to the function in the current version.}
 \examples{
 # Load the toy dataset extracted from TCGA OV data
 data(ov)

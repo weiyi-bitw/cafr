@@ -1,4 +1,4 @@
-clusterAttractors <- function(filePath="./", fileNames,  numGenes=100,  datasetTags=NULL){
+clusterAttractors <- function(filePath="./", fileNames,  numGenes=100, strength.pos=10,  datasetTags=NULL){
   nf <- length(fileNames)
   if(is.null(datasetTags)){
     datasetTags <- paste("Dataset", sprintf("%03d",1:nf))
@@ -28,7 +28,8 @@ clusterAttractors <- function(filePath="./", fileNames,  numGenes=100,  datasetT
 				numgenes = numGenes,
 				a = x[i,],
 				genenames=colnames(x), 
-				src=tag)
+				src=taga,
+				qt=strength.pos)
     }
   }
 
