@@ -83,7 +83,9 @@ Arguments:\n
 		getGeneTable = function(sz=10,...){
 'Returns a vector of all genes in the attractor set ranked according to their occurrences in the attractor set.\n'
 			allgenes <- unlist(lapply(.self$attractors, function(aa){names(aa$genes)}))
-			return (sort(table(allgenes), decreasing=TRUE)[1:sz])
+			t <- sort(table(allgenes), decreasing=TRUE)
+			sz.new <- which.max(which(t >= t[sz]))
+			return (t[1:sz.new])
 		},
 		getConsensus = function(sz=50){ # NOT REAL CONSENSUS, ONLY THE CONSENSUS FROM TOP GENES
 'Returns a vector of genes and their MIs of size sz according to their average MI across the attractors in the attractor set.\n
