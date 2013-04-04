@@ -17,5 +17,6 @@ export(
 	summarizeGenes,		#
 	Attractor,		#
 	AttractorSet,		#
-	clusterAttractors
+	clusterAttractors,	#
+	outputAttractors
 )
