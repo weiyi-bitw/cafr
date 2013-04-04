@@ -28,12 +28,13 @@ clusterAttractors <- function(filePath="./", fileNames,  numGenes=100, strength.
 				numgenes = numGenes,
 				a = x[i,],
 				genenames=colnames(x), 
-				src=taga,
+				src=tag,
 				qt=strength.pos)
     }
   }
 
   cat(length(attractorPool), "attractors loaded.\n");flush.console()
+  attractorPool <- attractorPool[order(sapply(attractorPool, function(a){a$strength}), decreasing=T)]
 
   # Calculate all pairwise similarities bewteen attractors
   cat("Caculate all pairwise similarities between attractors and attractor sets...\n");flush.console()
@@ -87,7 +88,7 @@ clusterAttractors <- function(filePath="./", fileNames,  numGenes=100, strength.
 	unlist(lapply(attractorPool, 
 		function(x){
 			if(class(x)=="Attractor") return (x$strength)
-			else if(class(x) == "AttractorSet") return (x$minStrength)
+			else if(class(x) == "AttractorSet") return (x$medStrength)
 		}))
   attractorPool <- attractorPool[order(w, decreasing=TRUE)]
   return (attractorPool)

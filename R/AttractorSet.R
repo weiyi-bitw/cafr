@@ -11,7 +11,8 @@ AttractorSet <- setRefClass(
 	field=list(id="character", 
 		attractors = "list",
 		capacity = "numeric",
-		minStrength = "numeric"),
+		minStrength = "numeric",
+		medStrength = "numeric"),
 	methods=list(
 		initialize = function(id, a, k){
 'Initialize an AttractorSet object\n
@@ -24,8 +25,10 @@ Arguments:\n\tid : ID of the attractor set\n
 			.self$add(a)
 			if(class(a) == "Attractor"){
 				minStrength <<- a$strength
+				medStrength <<- a$strength
 			}else if(class(a) == "AttractorSet"){
 				minStrength <<- a$minStrength
+				medStrength <<- a$medStrength
 			}
 			return(.self)
 		},
@@ -40,18 +43,21 @@ Arguments:\n
 				return (TRUE)
 			}else if(class(a)=="AttractorSet"){
 				ovlpSrc <- sum(unlist(lapply(a$attractors, function(aa){!is.null(.self$attractors[[aa$src]])}) ))
-				if(ovlpSrc > (.self$capacity / 3) ) return (FALSE)
+				if(ovlpSrc > .self$capacity/3) return (FALSE) #(min(length(a$attractors), length(.self$attractors)) / 3) ) return (FALSE)
 				for(aa in a$attractors){
 					if(is.null(.self$attractors[[aa$src]])){
 						attractors[[aa$src]] <<- aa
 					}else{
 						myaa <- .self$attractors[[aa$src]]
-						if(myaa$strength < aa$strength){
+						if( (myaa$getOverlapNum(.self) + myaa$getOverlapNum(a)) < (aa$getOverlapNum(.self) + aa$getOverlapNum(a)) ){
 							attractors[[aa$src]] <<- aa
 						}
 					}
 				}
-				minStrength <<- min( unlist(lapply(.self$attractors, function(aa){aa$strength})) )
+				ss <- unlist(lapply(.self$attractors, function(aa){aa$strength}))
+				minStrength <<- min( ss )
+				medStrength <<- median( ss )
+				
 				return (TRUE)
 			}
 		},
@@ -74,10 +80,10 @@ Arguments:\n
 				return (sum(unlist(k)))
 			}
 		},
-		getGeneTable = function(...){
+		getGeneTable = function(sz=10,...){
 'Returns a vector of all genes in the attractor set ranked according to their occurrences in the attractor set.\n'
 			allgenes <- unlist(lapply(.self$attractors, function(aa){names(aa$genes)}))
-			return (sort(table(allgenes), decreasing=TRUE))
+			return (sort(table(allgenes), decreasing=TRUE)[1:sz])
 		},
 		getConsensus = function(sz=50){ # NOT REAL CONSENSUS, ONLY THE CONSENSUS FROM TOP GENES
 'Returns a vector of genes and their MIs of size sz according to their average MI across the attractors in the attractor set.\n
@@ -86,7 +92,7 @@ Arguments:\n
 NOTE : To produce more accurate consensus, the choice of sz should be much less than the number of genes in the Attractor. '
 			allgenes <- unlist(lapply(.self$attractors, function(aa){names(aa$genes)}))
 			g <- unique(allgenes)
-			mat <- matrix(0, nrow=length(g), ncol=.self$capacity)
+			mat <- matrix(0, nrow=length(g), ncol=length(.self$attractors))
 			rownames(mat) <- g
 			colnames(mat) <- unlist(lapply(.self$attractors, function(aa){aa$src}))
 			for(aa in .self$attractors){
@@ -104,6 +110,7 @@ Arguments:\n
 			allgenes <- matrix(unlist(lapply(.self$attractors, function(aa){names(aa$genes)})),nrow=length(.self$attractors), byrow=TRUE)[,1:sz]
 			rownames(allgenes) <- unlist(lapply(.self$attractors, function(aa){aa$id}))
 			allgenes <- cbind(allgenes, unlist(lapply(.self$attractors, function(aa){aa$strength})))
+			allgenes <- allgenes[sort(rownames(allgenes)),]
 			return (allgenes)
 		}
 		

@@ -8,7 +8,7 @@ attractorScanning <- function(data, a=5, maxIter=100, epsilon=1E-14, bin=6, so=3
   while(length(task) > 0){
     i <- task[1]
     cat(genes[i], " ( ", c, " / ", length(task), ") ... ", sep="");flush.console()
-    out <- CAFrun(data, data[i,], verbose=FALSE, sorting=FALSE)
+    out <- CAFrun(data, data[i,], a=a, maxIter=maxIter, epsilon=epsilon, bin=bin, so=so, rankBased=rankBased,negateMI=negateMI, verbose=FALSE, sorting=FALSE)
     if(is.null(out)){
       cat("not converged.\n");flush.console()
       task <- task[-1]
