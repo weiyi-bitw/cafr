@@ -23,7 +23,10 @@ args <- commandArgs(TRUE)
 # Load data
 #===============================
 
-load(args[1])
+env <- new.env()
+nm <- load(args[1], env)[1]
+ge <- env[[nm]]
+
 codename = args[1]
 wid = 1
 numWorkers=1
@@ -51,7 +54,7 @@ taskList = createFolds(1:m, k=numWorkers)
 
 cat("Finding attractors...\n");flush.console()
 
-as = parAttractorScanning(ge, taskList=taskList, wid=wid)
+as = parAttractorScanning(ge, maxIter=500 , taskList=taskList, wid=wid)
 dir.create(dirname)
 save(as, file=paste(dirname,"/",codename,".attractors.", sprintf("%04d", wid), ".rda", sep=""))
 

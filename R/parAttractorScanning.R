@@ -9,7 +9,7 @@ parAttractorScanning <- function(data, taskList=list(1:nrow(data)), wid=1,  a=5,
   while(length(task) > 0){
     i <- task[1]
     cat("Worker ", wid, " : ", genes[i], " ( ", c, " / ", length(task), ")\n", sep="");flush.console()
-    out <- CAFrun(data, data[i,], verbose=FALSE, sorting=FALSE)
+    out <- CAFrun(data, data[i,], a=a, maxIter=maxIter, epsilon=epsilon, bin=bin, so=so, rankBased=rankBased, negateMI=negateMI, verbose=FALSE, sorting=FALSE)
     if(is.null(out)){
       #if(verbose) {cat("not converged.\n");flush.console()}
       task <- task[-1]

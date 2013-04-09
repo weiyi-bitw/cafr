@@ -1,5 +1,7 @@
 outputAttractors <- function(x, min.basins=2, strength.pos=10, outputGeneNumber=100, write2File=FALSE, fileName="attractors.txt"){
 	m <- nrow(x)
+	strength <- apply(x, 1, function(x){sort(x, decreasing=TRUE)[strength.pos]})
+	x <- x[order(strength, decreasing=TRUE),]
 	outMat <- NULL
 	k <- 1
 	for(i in 1:m){
