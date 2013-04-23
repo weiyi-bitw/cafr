@@ -1,17 +1,23 @@
-createMetageneSpace <- function(ge, attractome, map=NULL, chosenProbes=NULL, gene.colname="Gene.Symbol"){
+createMetageneSpace <- function(ge, attractome, map=NULL, rownamesMap=FALSE, chosenProbes=NULL, gene.colname="Gene.Symbol"){
   if(is.null(chosenProbes)) {
     if(is.null(map)){
-      cat("Warning: map is NULL!\n");flush.console()
-      cat("Using rownames directly?\n\t 'y' for using rownames directly, 'n' for quit (y/N): ");
-      ans <- readline()
-      if(ans == "y" | ans == "Y"){
-        map <- cbind(rownames(ge))
-        rownames(map) <- rownames(ge)
-	colnames(map) <- gene.colname
-        #print(dim(ge))
+      if(!rownamesMap){
+        cat("Warning: map is NULL!\n");flush.console()
+        cat("Using rownames directly?\n\t 'y' for using rownames directly, 'n' for quit (y/N): ");
+        ans <- readline()
+        if(ans == "y" | ans == "Y"){
+          map <- cbind(rownames(ge))
+          rownames(map) <- rownames(ge)
+	  colnames(map) <- gene.colname
+          #print(dim(ge))
+        }else{
+          cat("Quit.\n");
+          return (NULL)
+        }
       }else{
-        cat("Quit.\n");
-        return (NULL)
+          map <- cbind(rownames(ge))
+          rownames(map) <- rownames(ge)
+	  colnames(map) <- gene.colname
       }
     }
     nMeta <- length(attractome)

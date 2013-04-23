@@ -5,7 +5,7 @@
 
 
 \usage{
-createMetageneSpace(ge, attractome, map=NULL, chosenProbes=NULL, gene.colname="Gene.Symbol")
+createMetageneSpace(ge, attractome, map=NULL, rownamesMap=FALSE, chosenProbes=NULL, gene.colname="Gene.Symbol")
 }
 
 \arguments{
@@ -15,6 +15,7 @@ createMetageneSpace(ge, attractome, map=NULL, chosenProbes=NULL, gene.colname="G
   \item{map}{Path to gene symbol annotation file with rownames as probe set IDs. Must contains a column 
              with gene symbols. If \code{NULL}, the program will assume the dataset is already a 
              gene-level expression matrix.}
+  \item{rownamesMap}{If \code{TRUE} and no provided \code{map}, use row names of the dataset directly to create metagenes.}
   \item{chosenProbes}{A list of probe set IDs selected by previous run. If this argument is assigned, 
                      the program will not find the best correlated probe sets for summarization. This 
                      is used for probe set consistency among different datasets.}

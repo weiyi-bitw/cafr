@@ -1,10 +1,17 @@
 loadClin <- function(file, sep='\t'){
   line <- readLines(file)
-  tokens <- strsplit(line[1], sep)[[1]]
+  tokens <- strsplit(line[2], sep)[[1]]
   n <- length(tokens)-1
   m <- length(line)-1
-  mset <- matrix(NA, m, n)	
-  cname <- tokens[2:(n+1)]
+  mset <- matrix(NA, m, n)
+  tokens <- strsplit(line[1], sep)[[1]]
+  if(length(tokens)==n){
+    cname <- tokens[1:n]
+  }else if(length(tokens)==n+1){
+    cname <- tokens[2:(n+1)]
+  }else{
+    stop("The number of entries in header is incompatible with the number of other lines!")
+  }
   rname <- rep(NA, m)
   b <- txtProgressBar(style=3)
   for(i in 1:m){
