@@ -31,8 +31,7 @@ createMetageneSpace(ge, attractome, map=NULL, rownamesMap=FALSE, chosenProbes=NU
         If \code{ge} is a probe-level expression matrix, the function first summarize the probe-level 
         expression into gene-level expression by taking mean values after discarding the un-correlatted
         probe sets (similar to the \code{probeSummarization} function). Then it create metagenes using
-        the mean of the gene-level expression of the genes. If the gene members in a metagene is more 
-        than ten, it will only take the top 10 genes in the list. If \code{ge} is gene-level expression
+        the mean of the gene-level expression of the genes. If \code{ge} is gene-level expression
         matrix, the function will directly take the mean of the gene members and create the metagene.
 
         For consistency of the probe set used, one can use the \code{pbs} field of the output from 
