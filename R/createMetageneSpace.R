@@ -32,6 +32,7 @@ createMetageneSpace <- function(ge, attractome, map=NULL, rownamesMap=FALSE, cho
       #cat(i, "\n")
       #flush.console()
       a <- attractome[[i]]
+      genes <- a[,1]
       il <- lapply(genes, function(g){which(mappedGenes == g)})
       ill <- sapply(il, length)
       goodIdx <- lapply(il, function(i){ if(length(i) == 1) i})
