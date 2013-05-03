@@ -40,6 +40,8 @@ Arguments:\n
 				if(!is.null(.self$attractors[[a$src]])) return (FALSE)
 				attractors[[a$src]]<<- a
 				minStrength <<- min(.self$minStrength, a$strength)
+				ss <- unlist(lapply(.self$attractors, function(aa){aa$strength}))
+				medStrength <<- median( ss )
 				return (TRUE)
 			}else if(class(a)=="AttractorSet"){
 				ovlpSrc <- sum(unlist(lapply(a$attractors, function(aa){!is.null(.self$attractors[[aa$src]])}) ))
