@@ -1,4 +1,4 @@
-clusterAttractors <- function(filePath="./", fileNames,  numGenes=100, strength.pos=10, min.basins=2,  datasetTags=NULL){
+clusterGLAttractors <- function(filePath="./", fileNames,  numGenes=10, strength.pos=5, min.strength=0.5,  datasetTags=NULL){
   nf <- length(fileNames)
   if(is.null(datasetTags)){
     datasetTags <- paste("Dataset", sprintf("%03d",1:nf))
@@ -16,20 +16,23 @@ clusterAttractors <- function(filePath="./", fileNames,  numGenes=100, strength.
     f <- file.path(filePath, can)
     cat("Processing", f, "...\n");flush.console()
     nm <- load(f, env)[1]
-    x <- env[[nm]]
-    na <- nrow(x)
+    out <- env[[nm]]
+    na <- nrow(out$summary)
     for(i in 1:na){
-		o <- order(x[i,], decreasing=TRUE)
-		if(min.basins > 0){
+		a <- out$summary[i,2:(2+numGenes-1)]
+		mis <- out$scoremat[1:numGenes,rownames(out$summary)[i]]
+		s <- mis[strength.pos]
+		
+		if(min.strength > 0){
 		# if the attractor has less than 2 attractees, skip
-			if(rownames(x)[i] %in% colnames(x)[o[1:min.basins]]) next
+			if(s < min.strength) next
 		}
 		aid <- paste(tag, sprintf("%03d", i), sep="")
 		attractorPool[[aid]] <- Attractor$new(
 				id = aid,
 				numgenes = numGenes,
-				a = x[i,],
-				genenames=colnames(x), 
+				a = mis,
+				genenames=a, 
 				src=tag,
 				qt=strength.pos)
     }

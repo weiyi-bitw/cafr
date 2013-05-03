@@ -54,7 +54,7 @@ attractorScanningGL <- function(data, genome, alpha=(2:12)/2, windowSize = 50, m
       }
     }
   }
-  killidx <- which(is.na(alist))
+  killidx <- which(is.na(alist) | sapply(alist, is.null))
   if (length(killidx) > 0){
     alist[killidx] <- NULL
     ascore <- ascore[-killidx]
