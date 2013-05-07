@@ -74,6 +74,7 @@ clusterAttractors <- function(filePath="./", fileNames,  numGenes=100, strength.
 			})
       addList <- addList[sapply(addList,function(x){!is.null(x)})]
       simList <- c(simList, addList)
+      if(length(simList) == 0) break
       o <- order(unlist(sapply(simList, function(x){ as.numeric(as.vector(x[3])) })), decreasing=TRUE)
       simList <- simList[o]
 		

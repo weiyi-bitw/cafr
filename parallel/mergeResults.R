@@ -31,6 +31,20 @@ for(i in 1:nf){
 	m = nrow(x)
 	ma = nrow(as)
 	attachIdx = NULL
+	mergeIdx = NA
+#	for(i in 1:ma){
+#		a = as[i,]
+#		for(j in 1:m){
+#			xx = x[j,]
+#			dd = max(a-xx)
+#			if(dd < 1E-4){
+#				mergeIdx = j
+#				break
+#			}
+#		}
+#		if(!is.na(mergeIdx)) break
+#	}
+
 	mergeIdx = apply(as, 1, function(a){
 		dd = apply(x, 1, function(xx){max(a - xx)})
 		if(min(dd) < 1E-4) return (which.min(dd))
