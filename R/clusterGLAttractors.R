@@ -24,7 +24,7 @@ clusterGLAttractors <- function(filePath="./", fileNames,  numGenes=10, strength
 		s <- mis[strength.pos]
 		
 		if(min.strength > 0){
-		# if the attractor has less than 2 attractees, skip
+		# if the attractor strength is less than min.strength, skip
 			if(s < min.strength) next
 		}
 		aid <- paste(tag, sprintf("%03d", i), sep="")
