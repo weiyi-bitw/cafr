@@ -1,10 +1,11 @@
-attractorScanning <- function(data, a=5, maxIter=100, epsilon=1E-14, bin=6, so=3, rankBased=FALSE, negateMI=TRUE){
+attractorScanning <- function(data, a=5, maxIter=100, epsilon=1E-14, bin=6, so=3, rankBased=FALSE, negateMI=TRUE, outputDominant=FALSE){
   m <- nrow(data)
   n <- ncol(data)
   genes <- rownames(data)
   task <- 1:m
   c <- 1
   as <- NULL
+  dd <- rep(FALSE, m)
   while(length(task) > 0){
     i <- task[1]
     cat(genes[i], " ( ", c, " / ", length(task), ") ... ", sep="");flush.console()
@@ -37,11 +38,17 @@ attractorScanning <- function(data, a=5, maxIter=100, epsilon=1E-14, bin=6, so=3
       c <- c + 1
       cat("done!\n");flush.console()
     }else{
+      dd[i] <- TRUE
       cat("dominant.\n");flush.console()
     }
   }
   if(!is.null(as)){
     colnames(as) <- rownames(data)
   }
-  return (as)
+  if(outputDominant){
+    oo <- list(attractorMatrix=as, dominant=dd)
+    return (oo)
+  }else{
+    return (as)
+  }
 }
