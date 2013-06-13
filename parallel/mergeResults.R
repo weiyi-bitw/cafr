@@ -26,6 +26,7 @@ for(i in 1:nf){
 	load(file.path(filePath,fileNames[i]))
 	if(is.null(as)) next
 	if(is.null(x)){
+		dom = c(dom, dd)
 		x = as
 		next
 	}
@@ -91,7 +92,7 @@ dd[dom] = TRUE
       x <- x[!killIdx2,]
     }
   }
-
+m = nrow(x)
 cat(m, "attractors in total.\n\n")
 
 cat("Generate summarized files...\n");flush.console()
@@ -109,5 +110,6 @@ for(i in 1:m){
 rownames(out1) = 1:100
 
 save(x, file="attractorMatrix.rda")
+save(dd, file="dominantIndex.rda")
 write.table(out1, file="attractors.txt", sep='\t', quote=F)
 
