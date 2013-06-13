@@ -6,6 +6,7 @@ parAttractorScanning <- function(data, taskList=list(1:nrow(data)), wid=1,  a=5,
   task <- taskList[[wid]]
   c <- 1
   as <- NULL
+  dd <- NULL
   while(length(task) > 0){
     i <- task[1]
     cat("Worker ", wid, " : ", genes[i], " ( ", c, " / ", length(task), ")\n", sep="");flush.console()
@@ -20,7 +21,7 @@ parAttractorScanning <- function(data, taskList=list(1:nrow(data)), wid=1,  a=5,
     task <- setdiff(task, killIdx)
     
     d <- out[order(out)[m]] - out[order(out)[m-1]]
-    if(d <= 0.5){
+    if(d <= 0.6){
       if(!is.null(as)){
         un <- apply(as, 1, function(x){
           max(abs(x - out)) > 1E-4
@@ -38,12 +39,14 @@ parAttractorScanning <- function(data, taskList=list(1:nrow(data)), wid=1,  a=5,
       c <- c + 1
       #if(verbose) {cat("done!\n");flush.console()}
     }else{
+      dd <- c(dd, i)
       #if(verbose) {cat("dominant.\n");flush.console()}
     }
   }
   if(!is.null(as)){
     colnames(as) <- rownames(data)
   }
+  oo <- list(attractorMatrix=as, dominant=dd)
   cat("Worker", wid, "finished.\n");flush.console()
-  return (as)
+  return (oo)
 }

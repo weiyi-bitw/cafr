@@ -20,6 +20,7 @@ fileNames = list.files(pattern="*.attractors.*.rda", path = filePath)
 nf = length(fileNames)
 
 x = NULL
+dom = NULL
 for(i in 1:nf){
 	cat("Processing", fileNames[i], "...\n");flush.console()
 	load(file.path(filePath,fileNames[i]))
@@ -28,6 +29,7 @@ for(i in 1:nf){
 		x = as
 		next
 	}
+	dom = c(dom, dd)
 	m = nrow(x)
 	ma = nrow(as)
 	attachIdx = NULL
@@ -64,9 +66,32 @@ for(i in 1:nf){
 	}
 }
 gc()
+
+
 strength = apply(x, 1, function(xx){sort(xx, decreasing=T)[10]})
 x = x[order(strength, decreasing=T),]
 m = nrow(x)
+ma = ncol(x)
+dd = rep(FALSE, ma)
+names(dd) = colnames(x)
+dd[dom] = TRUE
+  if(!is.null(x)){
+    killIdx2 <- rep(FALSE, m )
+    for(i in 1:m){
+  	if(max(x[i,]) == x[i,rownames(x)[i]]){
+		dd[rownames(x)[i]] <- TRUE
+		killIdx2[i] <- TRUE
+	}
+    }
+    if(sum(killIdx2) == nrow(x)-1){
+      bkup <- rownames(x)[!killIdx2]
+      x <- t(x[!killIdx2,])
+      rownames(x) <- bkup
+    }else{
+      x <- x[!killIdx2,]
+    }
+  }
+
 cat(m, "attractors in total.\n\n")
 
 cat("Generate summarized files...\n");flush.console()
