@@ -17,7 +17,7 @@ parAttractorScanning <- function(data, taskList=list(1:nrow(data)), wid=1,  a=5,
       next
     }
     
-    killIdx <- which(out >= out[i])
+    killIdx <- which(out >= out[i] & out > 0.5)
     task <- setdiff(task, killIdx)
     
     d <- out[order(out)[m]] - out[order(out)[m-1]]
