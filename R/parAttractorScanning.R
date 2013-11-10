@@ -27,7 +27,7 @@ parAttractorScanning <- function(data, taskList=list(1:nrow(data)), wid=1,  a=5,
           max(abs(x - out)) > 1E-4
         })
         if(prod(un) == 0){
-          killIdx <- which(out >= out[i])
+          killIdx <- which(out >= out[i] & out > 0.5)
           task <- setdiff(task, killIdx)
           rownames(as)[which(un==0)] <- genes[i]
           #if(verbose) {cat("done!\n");flush.console()}
