@@ -26,6 +26,8 @@ attractorScanning <- function(data, a=5, maxIter=100, epsilon=1E-14, bin=6, so=3
           max(abs(x - out)) > 1E-4
         })
         if(prod(un) == 0){
+          killIdx <- which(out >= out[i] & out > 0.5)
+          task <- setdiff(task, killIdx)
           rownames(as)[which(un==0)] <- genes[i]
           cat("done!\n");flush.console()
           next
