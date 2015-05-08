@@ -10,7 +10,7 @@ export(
 	getAllCorWz,	#
 	findCorrAttractor,	#
 	attractorScanning,	#
-	parAttractorScanning,	#
+	PartialAttractorScanning,	#
 	attractorScanningGL,	#
 	probeSummarization,	#
 	createMetageneSpace,	#
@@ -18,5 +18,6 @@ export(
 	Attractor,		#
 	AttractorSet,		#
 	clusterAttractors,	#
-	outputAttractors
+	outputAttractors,
+  ExtractGeneNameTCGA
 )

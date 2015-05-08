@@ -3,13 +3,13 @@
 # 2013.03.07
 #
 # arguments for script:
-#	args[1] : input gene expression data matrix
-#	args[2] : worker id
-#	args[3] : total workers
-#	args[4] : job codename (optional)
+#	  args[1] : input gene expression data matrix
+#	  args[2] : worker id
+#	  args[3] : total workers
+#	  args[4] : job codename (optional)
+#
 # For example, to run parFindAttractor on worker 1 in a 10-worker cluster:
 # > Rscript parallel.sge.R data.rda 1 10 JOBID
-#
 #
 
 require(devtools)
