@@ -5,6 +5,7 @@ export(
 	loadExpr,	#
 	loadClin,	#
 	getMI,		#
+  MIDistance,
 	getCorr,	#
 	getAllMIWz,	#
 	getAllCorWz,	#

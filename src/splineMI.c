@@ -327,6 +327,25 @@ double mi2(const double *x, const double *y, int n, int bin, int so, int norm, i
   return mi;
 }
 
+double mid2(const double *x, const double *y, int n, int bin, int so){
+  double *u = (double*) calloc(bin + so, sizeof(double));
+  double *wx = (double*) calloc(bin * n, sizeof(double));
+  double *wy = (double*) calloc(bin * n, sizeof(double));
+  double e1x, e1y, mid2;
+
+  knotVector(u, bin, so);
+  findWeights(x, u, wx, n, so, bin, -1, -1);
+  findWeights(y, u, wy, n, so, bin, -1, -1);
+  e1x = entropy1(wx, n, bin);
+  e1y = entropy1(wy, n, bin);
+  mid2 = 2 * entropy2(wx, wy, n, bin) - e1x - e1y;
+
+  free(wx);
+  free(wy);
+  free(u);
+  return mid2;
+}
+
 //========================= export R function ===================================
 
 void mi2R(const double *x, const double *y, int *n, int *bin, int *so, double *miOut, int *norm, int *negateMI){
@@ -354,6 +373,25 @@ void mi2R(const double *x, const double *y, int *n, int *bin, int *so, double *m
   free(wy);
   free(u);
   *miOut = mi;
+}
+
+void mid2R(const double *x, const double *y, int *n, int *bin, int *so, double *mi_out){
+  double *u = (double*) calloc(*bin + *so, sizeof(double));
+  double *wx = (double*) calloc(*bin * *n, sizeof(double));
+  double *wy = (double*) calloc(*bin * *n, sizeof(double));
+  double e1x, e1y, mid2;
+
+  knotVector(u, *bin, *so);
+  findWeights(x, u, wx, *n, *so, *bin, -1, -1);
+  findWeights(y, u, wy, *n, *so, *bin, -1, -1);
+  e1x = entropy1(wx, *n, *bin);
+  e1y = entropy1(wy, *n, *bin);
+  mid2 = 2 * entropy2(wx, wy, *n, *bin) - e1x - e1y;
+
+  free(wx);
+  free(wy);
+  free(u);
+  *mi_out = mid2;
 }
 
 void mi2DiffBins(const double *x, const double *y, int *n, int *binx, int *biny, int *sox, int *soy, double *miOut, int *norm, int *negateMI){
