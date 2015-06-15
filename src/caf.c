@@ -5,7 +5,7 @@
 #include <time.h>
 #include <R.h>
 #include <Rdefines.h>
-#include "splineMI.h"
+#include "spline_mi.h"
 #include "fuf.h"
 
 void getWeightedMetagene(const double *data, const double *mi, double *o, double a, int m, int n){

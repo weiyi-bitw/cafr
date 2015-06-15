@@ -1,4 +1,4 @@
-#include "splineMI.h"
+#include "spline_mi.h"
 
 float log2f(float x) {
   return log(x)/log(2);
