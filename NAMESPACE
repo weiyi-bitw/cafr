@@ -1,14 +1,15 @@
 useDynLib(cafr)
 export(
-	findAttractor,  #
-	findGLAttractor,# 
-	loadExpr,	#
-	loadClin,	#
-	getMI,		#
-	getCorr,	#
-	getAllMIWz,	#
-	getAllCorWz,	#
-	findCorrAttractor,	#
+	FindAttractor,  #
+	FindGLAttractor,# 
+	LoadNumericalMat,	#
+	LoadTextMat,	#
+	SplineMI,		#
+  MIDistance,
+	Corr,	#
+	GetAllMIWz,	#
+	GetAllCorWz,	#
+	FindCorrAttractor,	#
 	attractorScanning,	#
 	PartialAttractorScanning,	#
 	attractorScanningGL,	#
@@ -20,4 +21,6 @@ export(
 	clusterAttractors,	#
 	outputAttractors,
   ExtractGeneNameTCGA
+  PairwiseCor,
+  AllPairwiseCor
 )

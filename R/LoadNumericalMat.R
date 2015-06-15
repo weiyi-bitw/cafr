@@ -1,4 +1,4 @@
-loadExpr <- function(file, sep='\t'){
+LoadNumericalMat <- function(file, sep='\t'){
   line <- readLines(file)
   tokens <- strsplit(line[1], "\t")[[1]]
   n <- length(tokens)-1

@@ -1,4 +1,4 @@
-findCorrAttractor <- function(data, vec, a=10, maxIter=100, epsilon=1E-14, rankBased=FALSE){
+FindCorrAttractor <- function(data, vec, a=10, maxIter=100, epsilon=1E-14, rankBased=FALSE){
   dataIn <- data
   if(rankBased){
     vec <- rank(vec)

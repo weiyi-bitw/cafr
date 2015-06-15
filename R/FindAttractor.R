@@ -1,4 +1,4 @@
-findAttractor <- function(data, vec, a=5, maxIter = 100, epsilon=1E-14, bin = 6, so = 3,rankBased = FALSE,  negateMI = TRUE, verbose=TRUE){
+FindAttractor <- function(data, vec, a=5, maxIter = 100, epsilon=1E-14, bin = 6, so = 3,rankBased = FALSE,  negateMI = TRUE, verbose=TRUE){
   dataIn <- data
   if(rankBased){
     vec <- rank(vec)

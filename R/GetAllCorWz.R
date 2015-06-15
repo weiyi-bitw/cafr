@@ -1,4 +1,4 @@
-getAllCorWz <- function(data, x, rankBased=FALSE, sorting=FALSE){
+GetAllCorWz <- function(data, x, rankBased=FALSE, sorting=FALSE){
   m <- nrow(data)
   n <- ncol(data)
   if(length(x) != n){stop("legnth of two vectors are different!")}
