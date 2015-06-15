@@ -1,4 +1,4 @@
-getAllMIWz <- function(data, x, bin=6, so=3, rankBased=FALSE, normalize = TRUE, sorting = FALSE, negateMI = FALSE){
+GetAllMIWz <- function(data, x, bin=6, so=3, rankBased=FALSE, normalize = TRUE, sorting = FALSE, negateMI = FALSE){
   m <- nrow(data)
   n <- ncol(data)
   if(length(x) != n){stop("legnth of two vectors are different!")}

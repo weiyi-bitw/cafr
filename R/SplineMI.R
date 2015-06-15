@@ -1,4 +1,4 @@
-getMI <- function(x, y, bin=6, so=3, rankBased=FALSE, normalize=TRUE, negateMI = FALSE){
+SplineMI <- function(x, y, bin=6, so=3, rankBased=FALSE, normalize=TRUE, negateMI = FALSE){
   n <- length(x)
   if(length(y) != n){stop("legnth of two vectors are different!")}
   if(so >= bin){stop("spline order must be less than bin")}

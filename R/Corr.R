@@ -1,4 +1,4 @@
-getCorr <- function(x, y, rankBased = FALSE){
+Corr <- function(x, y, rankBased = FALSE){
   n <- length(x)
   if(length(y) != n){stop("length of two vectors are different!")}
   if(rankBased){

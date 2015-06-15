@@ -1,4 +1,4 @@
-loadClin <- function(file, sep='\t'){
+LoadTextMat <- function(file, sep='\t'){
   line <- readLines(file)
   tokens <- strsplit(line[2], sep)[[1]]
   n <- length(tokens)-1

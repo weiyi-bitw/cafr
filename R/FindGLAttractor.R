@@ -1,4 +1,4 @@
-findGLAttractor <- function(data,seed, genome, alpha=(2:12)/2, windowSize = 50, maxIter = 100, epsilon=1E-14, bin=6, so=3, score.position=5, num.output=10, negateMI=TRUE, verbose=TRUE){
+FindGLAttractor <- function(data,seed, genome, alpha=(2:12)/2, windowSize = 50, maxIter = 100, epsilon=1E-14, bin=6, so=3, score.position=5, num.output=10, negateMI=TRUE, verbose=TRUE){
   if(! seed %in% rownames(genome)) stop("Cannot find seed gene in genome file rownames!")
   genes.genome <- rownames(genome)
   idx.seed <- which(rownames(genome)==seed)

@@ -1,15 +1,15 @@
 useDynLib(cafr)
 export(
-	findAttractor,  #
-	findGLAttractor,# 
-	loadExpr,	#
-	loadClin,	#
-	getMI,		#
+	FindAttractor,  #
+	FindGLAttractor,# 
+	LoadNumericalMat,	#
+	LoadTextMat,	#
+	SplineMI,		#
   MIDistance,
-	getCorr,	#
-	getAllMIWz,	#
-	getAllCorWz,	#
-	findCorrAttractor,	#
+	Corr,	#
+	GetAllMIWz,	#
+	GetAllCorWz,	#
+	FindCorrAttractor,	#
 	attractorScanning,	#
 	parAttractorScanning,	#
 	attractorScanningGL,	#
@@ -19,5 +19,7 @@ export(
 	Attractor,		#
 	AttractorSet,		#
 	clusterAttractors,	#
-	outputAttractors
+	outputAttractors,
+  PairwiseCor,
+  AllPairwiseCor
 )
