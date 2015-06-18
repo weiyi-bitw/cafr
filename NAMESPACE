@@ -20,7 +20,7 @@ export(
 	AttractorSet,		#
 	clusterAttractors,	#
 	outputAttractors,
-  ExtractGeneNameTCGA
+  ExtractGeneNameTCGA,
   PairwiseCor,
   AllPairwiseCor
 )

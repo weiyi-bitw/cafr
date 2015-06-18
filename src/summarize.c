@@ -1,4 +1,4 @@
-#include "splineMI.h"
+#include "spline_mi.h"
 #include "pearsonCorr.h"
 #include <stdio.h>
 #include <stdlib.h>

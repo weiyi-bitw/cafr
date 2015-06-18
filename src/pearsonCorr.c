@@ -1,6 +1,5 @@
 #include "pearsonCorr.h"
 
-
 double cor(const double* x, const double* y, int n){
 	double xMean = 0, yMean = 0, xSd = 0, ySd = 0, rho = 0;
 	int i;
@@ -49,51 +48,92 @@ int ColIndex(long i, int m, int row){
   return i - (m-2)*row + row*(row-1)/2 + 1;
 }
 
-void PairwiseCor(
-  const double *data, 
-  long *idx_start,
-  long *all_tasks,
-  int *m, 
-  int *n,
-  int *buffer_exp, 
-  double *out
+SEXP PairwiseCor(
+  SEXP data_r, 
+  SEXP idx_start_r,
+  SEXP all_tasks_r,
+  SEXP m_r, 
+  SEXP n_r,
+  SEXP buffer_exp_r
 ){
-  const int kBufferSize = 1 << *(buffer_exp);
+  SEXP out_r;
+  double* data;
+  double* out;
+  long idx_start;
+  long all_tasks;
+  int m;
+  int n;
+  int buffer_exp;
+  R_len_t ol;
+
   const int kOutRowNum = 3;
-  unsigned int i, j;
+  long buffer_size;
+  long i;
+  int j;
   double x_mean, y_mean, x_sd, y_sd, rho;
   int x, y, r1, r2;
+  
+  Rprintf("GO\n");
+  
+  PROTECT(data_r = AS_NUMERIC(data_r));
+  PROTECT(idx_start_r = AS_INTEGER(idx_start_r));
+  PROTECT(all_tasks_r = AS_INTEGER(all_tasks_r));
+  PROTECT(m_r = AS_INTEGER(m_r));
+  PROTECT(n_r = AS_INTEGER(n_r));
+  PROTECT(buffer_exp_r = AS_INTEGER(buffer_exp_r));
 
-  i = *(idx_start) & (kBufferSize-1);
+  Rprintf("Finish PROTECT\n");
+
+  data = NUMERIC_POINTER(data_r);
+  idx_start = INTEGER_POINTER(idx_start_r)[0];
+  all_tasks = INTEGER_POINTER(all_tasks_r)[0];
+  m = INTEGER_POINTER(m_r)[0];
+  n = INTEGER_POINTER(n_r)[0];
+  buffer_exp = INTEGER_POINTER(buffer_exp_r)[0];
+
+	Rprintf("Finish POINTER\n");
+  
+  buffer_size = 1 << buffer_exp;
+  if(all_tasks - idx_start < buffer_size){
+    buffer_size = all_tasks - idx_start;
+  }
+  ol = (R_len_t) (3 * buffer_size);
+  PROTECT(out_r = NEW_NUMERIC(ol));
+  out = NUMERIC_POINTER(out_r);
+  
+  i = 0;
   do {
-    r1 = RowIndex(*(idx_start), *m);
-    r2 = ColIndex(*(idx_start), *m, r1);
+    r1 = RowIndex(idx_start, m);
+    r2 = ColIndex(idx_start, m, r1);
     x_mean = 0;
     y_mean = 0;
     x_sd = 0;
     y_sd = 0;
     rho = 0;
-    for(j = 0; j < *n; ++j) {
-      x = data[r1 + j*(*m)];
-      y = data[r2 + j*(*m)];
+    for(j = 0; j < n; ++j) {
+      x = data[r1 + j*m];
+      y = data[r2 + j*m];
       x_mean += x;
       y_mean += y;
       x_sd += x*x;
       y_sd += y*y;
       rho += x*y;
     }
-    x_mean /= *n;
-    y_mean /= *n;
-    x_sd = sqrt(x_sd - *n * x_mean * x_mean);
-    y_sd = sqrt(y_sd - *n * y_mean * y_mean);
-    rho = (rho - *n * x_mean * y_mean) / x_sd / y_sd;
+    x_mean /= n;
+    y_mean /= n;
+    x_sd = sqrt(x_sd - n * x_mean * x_mean);
+    y_sd = sqrt(y_sd - n * y_mean * y_mean);
+    rho = (rho - n * x_mean * y_mean) / x_sd / y_sd;
     out[kOutRowNum * i] = r1;
     out[kOutRowNum * i + 1] = r2;
     out[kOutRowNum * i + 2] = rho;
-    ++*(idx_start);
+    ++idx_start;
     ++i;
 
-  } while ( (i < kBufferSize) && (*(idx_start) < *(all_tasks)) );
+  } while ( i < buffer_size );
+
+  UNPROTECT(7);
+  return out_r;
 }
 
 void getAllCorWz(const double *data, const double *vec , int *m, int *n, double *rs){

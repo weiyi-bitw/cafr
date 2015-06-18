@@ -43,5 +43,6 @@ AllPairwiseCor <- function(ge, db="cafr", buffer.exp=16) {
   dbSendQuery(conn=conn, 
               "CREATE INDEX idx_idx2 ON allPairwiseSim (idx2, sim)")
   dbSendQuery(conn=conn, "CREATE INDEX idx_sim ON allPairwiseSim (sim)")
+  dbDisconnect(conn)
   return (list(dbname=db, tablenames=c("allPairwiseSim", "indexMap")))
 }
