@@ -1,4 +1,4 @@
-AllPairwiseCor <- function(ge, db="cafr", buffer.exp=16) {
+AllPairwiseCor <- function(ge, db="cafr", buffer.exp=16, tmp.dir=getwd()) {
   # calculate all pairwise Pearson correlation of a gene expression matrix
   # result stored in SQLite database table
   # 
@@ -15,12 +15,18 @@ AllPairwiseCor <- function(ge, db="cafr", buffer.exp=16) {
 
   conn <- dbConnect(SQLite(), dbname=db)
   
-  dbSendQuery(conn=conn, 
-              "CREATE TABLE allPairwiseSim 
-               (idx1 INTEGER, idx2 INTEGER, sim DOUBLE)" )
+  dbGetQuery(conn=conn,
+             "pragma temp_store=1")
+  
+  dbGetQuery(conn=conn,
+             sprintf("pragma temp_store_directory=\'%s\'", tmp.dir))
 
-  dbSendQuery(conn=conn, 
-              "CREATE TABLE indexMap (idx INTEGER, name TEXT)")
+  dbGetQuery(conn=conn, 
+             "CREATE TABLE allPairwiseSim 
+              (idx1 INTEGER, idx2 INTEGER, sim DOUBLE)" )
+
+  dbGetQuery(conn=conn, 
+             "CREATE TABLE indexMap (idx INTEGER, name TEXT)")
   index.map <- as.data.frame(row.names=1:nrow(ge), rownames(ge))
   dbWriteTable(conn=conn, name="indexMap", value=index.map, 
                row.names=TRUE, overwrite=FALSE, append=TRUE)
@@ -38,11 +44,13 @@ AllPairwiseCor <- function(ge, db="cafr", buffer.exp=16) {
                  row.names=FALSE, overwrite=FALSE, append=TRUE)
     gc()
   }
-  dbSendQuery(conn=conn, 
-              "CREATE INDEX idx_idx1 ON allPairwiseSim (idx1, sim)")
-  dbSendQuery(conn=conn, 
-              "CREATE INDEX idx_idx2 ON allPairwiseSim (idx2, sim)")
-  dbSendQuery(conn=conn, "CREATE INDEX idx_sim ON allPairwiseSim (sim)")
+  cat("Indexing databases ... \n")
+  flush.console()
+  dbGetQuery(conn=conn, 
+             "CREATE INDEX idx_idx1 ON allPairwiseSim (idx1, sim)")
+  dbGetQuery(conn=conn, 
+             "CREATE INDEX idx_idx2 ON allPairwiseSim (idx2, sim)")
+  dbGetQuery(conn=conn, "CREATE INDEX idx_sim ON allPairwiseSim (sim)")
   dbDisconnect(conn)
   return (list(dbname=db, tablenames=c("allPairwiseSim", "indexMap")))
 }

@@ -21,6 +21,8 @@ export(
 	clusterAttractors,	#
 	outputAttractors,
   ExtractGeneNameTCGA,
+  IsCancerTCGA,
   PairwiseCor,
-  AllPairwiseCor
+  AllPairwiseCor,
+  HierarchicalClustering
 )

@@ -73,7 +73,7 @@ SEXP PairwiseCor(
   double x_mean, y_mean, x_sd, y_sd, rho;
   int x, y, r1, r2;
   
-  Rprintf("GO\n");
+  //Rprintf("GO\n");
   
   PROTECT(data_r = AS_NUMERIC(data_r));
   PROTECT(idx_start_r = AS_INTEGER(idx_start_r));
@@ -82,7 +82,7 @@ SEXP PairwiseCor(
   PROTECT(n_r = AS_INTEGER(n_r));
   PROTECT(buffer_exp_r = AS_INTEGER(buffer_exp_r));
 
-  Rprintf("Finish PROTECT\n");
+  //Rprintf("Finish PROTECT\n");
 
   data = NUMERIC_POINTER(data_r);
   idx_start = INTEGER_POINTER(idx_start_r)[0];
@@ -91,7 +91,7 @@ SEXP PairwiseCor(
   n = INTEGER_POINTER(n_r)[0];
   buffer_exp = INTEGER_POINTER(buffer_exp_r)[0];
 
-	Rprintf("Finish POINTER\n");
+  //Rprintf("Finish POINTER\n");
   
   buffer_size = 1 << buffer_exp;
   if(all_tasks - idx_start < buffer_size){
@@ -123,7 +123,8 @@ SEXP PairwiseCor(
     y_mean /= n;
     x_sd = sqrt(x_sd - n * x_mean * x_mean);
     y_sd = sqrt(y_sd - n * y_mean * y_mean);
-    rho = (rho - n * x_mean * y_mean) / x_sd / y_sd;
+    rho = x_sd == 0 || y_sd == 0 ? 
+      0 : (rho - n * x_mean * y_mean) / x_sd / y_sd;
     out[kOutRowNum * i] = r1;
     out[kOutRowNum * i + 1] = r2;
     out[kOutRowNum * i + 2] = rho;
