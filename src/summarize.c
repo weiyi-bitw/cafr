@@ -1,10 +1,9 @@
-#include "spline_mi.h"
-#include "pearsonCorr.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <R.h>
 #include <Rdefines.h>
-
+#include "spline_mi.h"
+#include "pearson_corr.h"
 
 // filtering out the probes that has low correlation with others
 void probe_filter(double const *x, int m, int n, int *grp, int mg, int useCorr, double th){ 
@@ -27,7 +26,7 @@ void probe_filter(double const *x, int m, int n, int *grp, int mg, int useCorr, 
 			xx[j] = x[i + j*m];
 			yy[j] = xsum[grp[i] + j*mg];
 		}
-		r = useCorr? cor(xx, yy, n) : mi2(xx, yy, n, 6, 3, 1, 1);
+		r = useCorr? PearsonCorr(xx, yy, n) : mi2(xx, yy, n, 6, 3, 1, 1);
 		//Rprintf("row: %d\t group: %d\t corr: %f\n", i, grp[i], r);
 		if(r < th) grp[i] = -1;
 	}

@@ -25,6 +25,7 @@ HierarchicalClustering <- function(ge, sim.db, cut.off=NULL) {
   file.copy(sim.db, db.tmp)
 
   conn <- dbConnect(SQLite(), dbname=db.tmp)
+  dbGetQuery(conn, "PRAGMA cache_size=-2000")
   
   m <- nrow(ge)
   index.map <- dbReadTable(conn=conn, "indexMap", row.names=1)
@@ -32,8 +33,8 @@ HierarchicalClustering <- function(ge, sim.db, cut.off=NULL) {
                          dimnames=list(1:m, c("idx1", "idx2", "sim", "diff")))
   ge.copy <- ge
   
-  cat("Clear low similarity pairs")
-  dbGetQuery(conn, "DELETE FROM allPairwiseSim WHERE sim < 0")
+  #cat("Clear low similarity pairs\n")
+  #dbGetQuery(conn, "DELETE FROM allPairwiseSim WHERE sim < 0")
 
   que <- "DELETE FROM allPairwiseSim WHERE idx1=? OR idx2=?"
   cc <- 1
@@ -73,7 +74,6 @@ HierarchicalClustering <- function(ge, sim.db, cut.off=NULL) {
                  overwrite=FALSE, row.names=FALSE)
     
     cc <- cc + 1
-
   }
   dbDisconnect(conn)
   hclust.trace <- hclust.trace[1:cc,]

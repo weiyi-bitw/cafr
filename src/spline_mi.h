@@ -5,6 +5,13 @@
 #include <string.h>
 #include <R.h>
 
+#ifndef CAFR_SPLINE_MI_H_
+#define CAFR_SPLINE_MI_H_
+
+#ifdef __cplusplus
+extern "C" {
+#endif //__cplusplus
+
 float log2f(float);
 double log2d(double);
 void xToZ(const double*, double*, int, int, int, double, double);
@@ -26,3 +33,9 @@ void mi2DiffBins(const double *, const double *, int *, int *, int *, int *, int
 void mi2vs1(const double *, const double *, const double *, int *, int *, int *, double *, int *);
 void getAllMIWz(const double *, const double* , double *, int , int , int , int , int , int );
 void getAllMIWz_R(const double *, const double* , double *, int *, int *, int *, int *, int *, int *);
+
+#ifdef __cplusplus
+} //extern C
+#endif //__cplusplus
+
+#endif //CAFR_SPLINE_MI_H_

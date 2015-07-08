@@ -6,7 +6,7 @@ FindCorrAttractor <- function(data, vec, a=10, maxIter=100, epsilon=1E-14, rankB
       dataIn[i,] <- rank(data[i,])
     }
   }
-  rs <- getAllCorWz(dataIn, vec, rankBased=rankBased)
+  rs <- GetAllCorWz(dataIn, vec, rankBased=rankBased)
   prers <- rs
   w <- abs(rs)^a / sum(abs(rs)^a)
   w[rs < 0] <- -w[rs < 0]
@@ -14,7 +14,7 @@ FindCorrAttractor <- function(data, vec, a=10, maxIter=100, epsilon=1E-14, rankB
   if(rankBased) metagene <- rank(metagene)
   c <- 0
   while(c < maxIter){
-    rs <- getAllCorWz(dataIn, metagene)
+    rs <- GetAllCorWz(dataIn, metagene)
     delta <- sum((rs - prers)^2)
     cat("Iteration ", (c+1), "\tDelta = ", delta, "\n", sep="")
     print(rs[order(rs, decreasing=T)[1:20]])

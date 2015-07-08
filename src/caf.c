@@ -6,7 +6,7 @@
 #include <R.h>
 #include <Rdefines.h>
 #include "spline_mi.h"
-#include "fuf.h"
+#include "util.h"
 
 void getWeightedMetagene(const double *data, const double *mi, double *o, double a, int m, int n){
 	int i, j;
@@ -45,7 +45,7 @@ void caf(const double *data, const double *vec, double *mi, double a, int maxIte
 		getWeightedMetagene(data, mi, metag, a, m, n);
 		getAllMIWz(data, metag, mi, m, n, bin, so, 1, negateMI);
 		if(verbose){
-			order(mi, m, oi);
+      Order(mi, m, oi);
 			Rprintf("Iteration %d\n", c);
 			Rprintf("Gene Index\tMI\n");
 			nm = 20 > m? m : 20;
