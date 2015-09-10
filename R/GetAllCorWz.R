@@ -10,7 +10,7 @@ GetAllCorWz <- function(data, x, rankBased=FALSE, sorting=FALSE){
     x <- rank(x)
   }
   garbage <- rep(-999, m)
-  out <- .C("getAllCorWz", data = as.double(data), vec = as.double(x), m = as.integer(m), n = as.integer(n), rs=as.double(garbage))
+  out <- .C("GetAllCorWzC", data = as.double(data), vec = as.double(x), m = as.integer(m), n = as.integer(n), rs=as.double(garbage))
   
   rs <- out$rs
   names(rs) <- rownames(data)

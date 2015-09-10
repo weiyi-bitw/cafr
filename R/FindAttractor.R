@@ -6,7 +6,7 @@ FindAttractor <- function(data, vec, a=5, maxIter = 100, epsilon=1E-14, bin = 6,
       dataIn[i,] <- rank(data[i,])
     } 
   }
-  mi <- getAllMIWz(dataIn, vec, bin=bin, so=so, negateMI = negateMI)
+  mi <- GetAllMIWz(dataIn, vec, bin=bin, so=so, negateMI = negateMI)
   premi <- mi
   w <- abs(mi)^a / sum(abs(mi)^a)
   w[mi < 0] <- 0
@@ -14,7 +14,7 @@ FindAttractor <- function(data, vec, a=5, maxIter = 100, epsilon=1E-14, bin = 6,
   if(rankBased) metagene <- rank(metagene)
   c <- 0
   while(c < maxIter){
-    mi <- getAllMIWz(dataIn, metagene, bin=bin, so=so, negateMI = negateMI)
+    mi <- GetAllMIWz(dataIn, metagene, bin=bin, so=so, negateMI = negateMI)
     delta <- sum((mi - premi)^2)
     if(verbose){
       cat("Iteration ", (c+1), "\tDelta = ", delta, "\n", sep="")

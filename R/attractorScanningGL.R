@@ -37,7 +37,8 @@ attractorScanningGL <- function(data, genome, alpha=(2:12)/2, windowSize = 50, m
           break
         }
         premi <- mi
-        mi[mi < 0] <- 0
+        w <- abs(mi)^a / sum(abs(mi)^a)
+        w[mi < 0] <- 0
         metagene <- w %*% dataIn
         c <- c + 1
       }

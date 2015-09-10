@@ -15,7 +15,18 @@ extern "C" {
 
 double PearsonCorr(const double*, const double*, int);
 void corR(const double* , const double* , int* , double *);
-void getAllCorWz(const double *, const double * , int *, int *, double *);
+void GetAllCorWzC(
+    const double *, 
+    const double * , 
+    int *, 
+    int *, 
+    double *);
+void GetAllCorWz(
+    const double *, //data
+    const double *, //vec 
+    const int, //m
+    const int, //n
+    double *); //rs
 
 
 SEXP AllPairwiseCorCC(

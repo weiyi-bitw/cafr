@@ -41,7 +41,48 @@ void corR(const double* x, const double* y, int* n, double *cOut){
 	*cOut = rho;
 }
 
-void getAllCorWz(const double *data, const double *vec , int *m, int *n, double *rs){
+void GetAllCorWz(
+    const double *data, 
+    const double *vec , 
+    const int m, 
+    const int n, 
+    double *rs){
+  double vMean = 0, yMean, vSd = 0, ySd;
+  int i, j;
+  double y;
+
+  for(j = 0; j < n; j++){
+    vMean += vec[j];
+    vSd += vec[j] * vec[j];
+  }
+  vMean /= n;
+  vSd = sqrt(vSd - n * vMean * vMean);
+  if (fabs(vSd) < 1E-10) {
+    for(int i = 0; i < m; i++) rs[i] = 0;
+    return;
+  }
+
+  for(i = 0; i < m; i++){
+    yMean = 0;
+    ySd = 0;
+    rs[i] = 0;
+    for(j = 0; j < n; j++){
+      y = data[i + j * m];
+      yMean += y;
+      ySd += y * y;
+      rs[i] += vec[j] * y;
+    }
+    yMean /= n;
+    ySd = sqrt(ySd - n * yMean * yMean);
+    if (fabs(ySd) < 1E-10){
+      rs[i] = 0;
+    } else {
+      rs[i] = (rs[i] - n * vMean * yMean) / vSd / ySd;
+    }
+  }
+}
+
+void GetAllCorWzC(const double *data, const double *vec , int *m, int *n, double *rs){
 	double vMean = 0, yMean, vSd = 0, ySd;
 	int i, j;
 	double y;

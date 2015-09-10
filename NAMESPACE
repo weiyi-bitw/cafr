@@ -24,5 +24,6 @@ export(
   IsCancerTCGA,
   PairwiseCor,
   AllPairwiseCor,
-  GEUPGMA
+  GEUPGMA,
+  ClusterFeatures
 )

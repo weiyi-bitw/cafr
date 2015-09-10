@@ -36,6 +36,8 @@ void Order(double const *x, int n, int *o){
 
 void QuickSortRL(double const * arr, uint32_t *idx, 
                  uint32_t left, uint32_t right) {
+  //Rprintf("%d\t%d\n", left, right);
+  //if (left == right) return;
   uint32_t i = left, j = right;
   uint32_t tmp;
   double pivot = arr[ idx[(left + right)/2] ];
@@ -46,25 +48,29 @@ void QuickSortRL(double const * arr, uint32_t *idx,
       i++;
     while (arr[idx[j]] > pivot)
       j--;
+    //Rprintf("\tBefore IF: i:%d\tj:%d\n", i, j);
     if (i <= j) {
       tmp = idx[i];
       idx[i] = idx[j];
       idx[j] = tmp;
-      i++;
-      j--;
+      if (i < 4294967295) i++;
+      if (j > 0) j--;
     }
-  };
-
+    //Rprintf("\tAfter IF: i:%d\tj:%d\n", i, j);
+  }
+  //Rprintf("Done 1\n");
   if (left < j)
     QuickSortRL(arr, idx, left, j);
   if (i < right)
     QuickSortRL(arr, idx, i, right);
 }
 
-void OrderL(double const *x, uint32_t n, uint32_t *o){
+void OrderL(double const *x, uint32_t n, uint32_t *o, bool gen_index){
   uint32_t i;
-  for(i = 0; i < n; i++){
-    o[i] = i;
+  if(gen_index){
+    for(i = 0; i < n; i++){
+      o[i] = i;
+    }
   }
   QuickSortRL(x, o, 0, n-1);
 }
@@ -85,3 +91,5 @@ long TriangularIndex(int i, int j, int m){
   long idx = ( -3*i - (long)i*i ) / 2 + j + m*i-1;
   return idx;
 }
+
+
