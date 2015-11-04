@@ -46,7 +46,7 @@ for(i in 1:nf){
 #	}
 
 	mergeIdx = apply(as, 1, function(a){
-		dd = apply(x, 1, function(xx){max(a - xx)})
+		dd = apply(x, 1, function(xx){max(abs(a - xx))})
 		if(min(dd) < 1E-4) return (which.min(dd))
 		else return (NA)
 	})
@@ -75,7 +75,7 @@ out1 = NULL
 k = 1
 for(i in 1:m){
 	o = order(x[i,], decreasing=TRUE)
-	if(rownames(x)[i] %in% colnames(x)[o[1:2]]) next
+	#if(rownames(x)[i] %in% colnames(x)[o[1:2]]) next
 	out1 = cbind(out1,colnames(x)[o[1:100]], round(x[i,o[1:100]], 4))
 	aname = paste("Attractor", sprintf("%03d",k), sep="")
 	colnames(out1)[c(2*k-1, 2*k)] = c(paste(aname, ":Genes",sep="" ), paste(aname, ":MI",sep="") )
